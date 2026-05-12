@@ -1,0 +1,24 @@
+Template Pack · anti-entropy-docs
+
+These files are skeletons for a new project. Copy them to your target project:
+
+  templates/CLAUDE.md         →  <PROJECT>/CLAUDE.md
+  templates/README.md         →  <PROJECT>/README.md
+  templates/STATE.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/STATE.md
+  templates/TASKS.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/docs/TASKS.md
+  templates/ROADMAP.md        →  <PROJECT>/docs/ROADMAP.md
+  templates/CONVENTIONS.md    →  <PROJECT>/docs/CONVENTIONS.md
+
+Note · the relative links inside these templates (e.g., `../STATE.md`, `docs/TASKS.md`, `../../docs/ROADMAP.md`) intentionally do NOT resolve from this `templates/` directory — they are designed to resolve once the file is in its target location in the new project.
+
+Placeholders to fill in:
+  <PROJECT_NAME>           project name
+  <PROJECT_PATH>           memory directory path (e.g., -Users-yourname-work-myproject)
+  <ACTIVE_INSTANCE>        active instance directory name
+  <DOMAIN-SPECIFIC-RULE>   any domain-specific rule for your project
+  <REGISTRY>               if you have a pure registry, e.g., HPC_inventory
+
+Optional next:
+  - Add `HOWTO.md` at the project root (copy `../HOWTO.md`) — gives future you / contributors a quick architecture reference
+  - Add `.aiignore` to any frozen / read-only instance directory
+  - Add a domain-specific entry to CONVENTIONS.md §6
