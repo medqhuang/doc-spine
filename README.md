@@ -35,6 +35,14 @@ Nothing should live in two places. If two files describe the same status, one is
 
 ---
 
+## What this is *not*
+
+doc-spine solves **one** problem: state drift across prose files in long-running AI-collaborative projects.
+
+Not a substitute for project management (Linear, Jira), doc generators (Sphinx, mkdocs), AI context engineering (memory / RAG), or code architecture patterns.
+
+---
+
 ## What's in this repo
 
 | File | What it is |
@@ -82,7 +90,7 @@ If you remember nothing else, remember this. Everything else in this repo is der
 
 ## Status
 
-Version 0.1 (initial public release). Derived from real-world experience in two research projects (one failed, one succeeded — see [`case-studies/`](case-studies/)). The architecture is **stable enough to use** but the documentation will iterate based on user feedback.
+Version 0.1 (initial public release). Derived from two multi-month computational physics projects — both featuring **HPC compute paired with local AI-assisted coding** — one failure, one success (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
 
 ## Contributing
 
