@@ -137,6 +137,17 @@ This is the file that does most of the heavy lifting. Detailed structure:
 
 ### 7.1 YAML frontmatter (current state — overwrites on update)
 
+Minimum viable frontmatter is just two focus pointers:
+
+```yaml
+---
+active_task: <task_id>
+active_subinstance: <relative_path>
+---
+```
+
+The fields below are **optional** — add them only when the truth doesn't already live elsewhere. **Omit `in_flight_jobs` / `next_action` / `last_updated` if the truth lives in an external system (SLURM queue, CI status, git mtime) or in the event log itself**; field-izing them duplicates state that will go stale and force reconciliation cost.
+
 ```yaml
 ---
 stage: <stage_identifier>
@@ -149,7 +160,7 @@ last_updated: <YYYY-MM-DD>
 ---
 ```
 
-This block is **overwritten** on every update. It represents the current snapshot.
+This block is **overwritten** on every update; it represents the current snapshot.
 
 ### 7.2 Task graph (semi-stable)
 
