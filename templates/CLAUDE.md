@@ -12,8 +12,6 @@ Auto-loaded. Read this + `instances/<ACTIVE_INSTANCE>/STATE.md` frontmatter, the
 | **Strategy / red lines / locked decisions / DAG** | `docs/ROADMAP.md` | Decision points |
 | **Cross-project knowledge** (tooling quirks, env gotchas) | `~/.claude/projects/<PROJECT_PATH>/memory/` | On demand |
 
-Archive semantics: `docs/_archive/` = project-level historical snapshots; `instances/<frozen>/_legacy/` = byte-level retention inside frozen instances. Do not mix.
-
 ## STATE writing discipline
 
 - Event log is **append-only, one line per event**: `YYYY-MM-DD · scope · event type · summary + key data (JID) + consequence. ref: <pointer>`
@@ -29,6 +27,4 @@ Archive semantics: `docs/_archive/` = project-level historical snapshots; `insta
 2. **Frozen instances** (`instances/<frozen>/`) are read-only by default (enforced by `.aiignore`); reorganization may move old md into `_legacy/`, never edit content
 3. **<DOMAIN-SPECIFIC-RULE>**: e.g., for compute-heavy projects: "HPC large files (`*.save/`, `WAVECAR`, `*.wfc*`) do not rsync back to local"; replace with your domain's equivalent
 
-## Commit (project-specific authorization, optional)
-
-[Define your project's commit policy here. Example: "After completing a logical unit of work, you may `git commit` directly without explicit ask." Otherwise default Claude Code git safety applies.]
+Commit policy: [define project authorization here, or leave default Claude Code git safety in place.]

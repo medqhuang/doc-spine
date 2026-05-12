@@ -18,4 +18,4 @@ instances/<frozen_baseline>/         (optional) frozen baseline, .aiignore enfor
 - Other docs (ROADMAP / CONVENTIONS / etc.) → see directory tree above
 
 ---
-*Bootstrapped from [anti-entropy-docs](https://github.com/<YOUR_USER>/anti-entropy-docs) on YYYY-MM-DD.*
+*Bootstrapped from [doc-spine](https://github.com/<YOUR_USER>/doc-spine) on YYYY-MM-DD.*

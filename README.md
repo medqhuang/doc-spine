@@ -1,8 +1,6 @@
-# anti-entropy-docs
+# doc-spine
 
 > A documentation architecture for **long-running, AI-collaborative projects** — designed to prevent the slow entropy accumulation that turns "well-documented" projects into unreadable prose graveyards.
-
-[中文](README.zh.md) | English
 
 ---
 
@@ -18,29 +16,13 @@ This repo specifies an architecture that prevents that accumulation. It is **not
 
 ---
 
-## 5-minute overview
+## The shape of the solution
 
-The architecture has **3 anti-entropy mechanisms** and **5 content types**.
+Three coupled mechanisms — **Single Source**, **One-Way** ownership, **Append-Only** event log — applied to **5 canonical content types** (state, task spec, completion report, strategy, cross-project knowledge). Each type lives in exactly one file; everything else points to it.
 
-### 3 mechanisms
+Nothing should live in two places. If two files describe the same status, one is stale by definition.
 
-| Mechanism | Rule |
-|---|---|
-| **Single Source** | Each content type lives in exactly one location. Other files use pointers, never duplicate prose. |
-| **One-Way** | Cross-file references are one-way. Downstream reads upstream; does not write back. |
-| **Append-Only** | Events / decisions / reversals never modify past entries. Corrections go through git revert + new event. |
-
-### 5 content types
-
-| Content | Lives in | Format |
-|---|---|---|
-| State / decisions / events / reversals | `<instance>/STATE.md` (append one line per event) | MD + YAML frontmatter |
-| Task spec (input/steps/output/criteria/risks) | `<instance>/docs/TASKS.md` | MD |
-| Completion report + data trace | `<instance>/reports/T<N>_report.md` (write once, then read-only) | MD |
-| Strategy / red lines / locked decisions / DAG | `docs/ROADMAP.md` | MD |
-| Cross-project knowledge (HPC quirks, tool gotchas) | `~/.claude/projects/.../memory/` | MD |
-
-**Nothing should ever live in two places.** If two files describe the same status, one of them is stale.
+→ Full definitions and rationale: [SPEC.md §2-3](SPEC.md).
 
 ---
 
@@ -58,24 +40,32 @@ The architecture has **3 anti-entropy mechanisms** and **5 content types**.
 | File | What it is |
 |---|---|
 | [`README.md`](README.md) | This file — 5-minute pitch |
-| [`SPEC.md`](SPEC.md) | Full specification: 3 mechanisms, 5 content types, 7 design principles, file layout |
+| [`SPEC.md`](SPEC.md) | Full specification: mechanisms, content types, design principles, failure modes, anti-bloat patterns, file layout |
 | [`HOWTO.md`](HOWTO.md) | Operational guide: lookup tables, 3 daily scenarios, new-project + migration checklists |
-| [`PATTERNS.md`](PATTERNS.md) | Anti-bloat patterns + 3 documented failure modes |
 | [`case-studies/`](case-studies/) | Two anonymized case studies — one failure (doc bloat), one success (state-sourced) |
 | [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, etc.) |
-| [`examples/minimal-research-project/`](examples/minimal-research-project/) | A tiny working example you can fork to see the architecture in action |
+| [`examples/minimal-research-project/`](examples/minimal-research-project/) | A tiny filled-out project showing the skeleton in action |
 
 ---
 
 ## Quickstart (new project, 30 minutes)
 
 ```bash
-# 1. Copy templates into your new project
-cp -r anti-entropy-docs/templates/* my-new-project/
+project=my-new-project
+instance=main
 
-# 2. Open templates and fill in placeholders (search for <PROJECT_NAME>, <INSTANCE_NAME>, etc.)
-# 3. Commit
-cd my-new-project && git init && git add -A && git commit -m "Bootstrap with anti-entropy-docs"
+mkdir -p "$project/docs" "$project/instances/$instance/docs" "$project/instances/$instance/reports"
+cp doc-spine/templates/CLAUDE.md "$project/CLAUDE.md"
+cp doc-spine/templates/README.md "$project/README.md"
+cp doc-spine/templates/HOWTO.md "$project/HOWTO.md"
+cp doc-spine/templates/ROADMAP.md "$project/docs/ROADMAP.md"
+cp doc-spine/templates/CONVENTIONS.md "$project/docs/CONVENTIONS.md"
+cp doc-spine/templates/STATE.md "$project/instances/$instance/STATE.md"
+cp doc-spine/templates/INSTANCE_README.md "$project/instances/$instance/README.md"
+cp doc-spine/templates/TASKS.md "$project/instances/$instance/docs/TASKS.md"
+
+# Then fill placeholders: <PROJECT_NAME>, <ACTIVE_INSTANCE>, <PROJECT_PATH>, etc.
+cd "$project" && git init && git add -A && git commit -m "Bootstrap with doc-spine"
 ```
 
 See [HOWTO.md §New project checklist](HOWTO.md) for full steps.

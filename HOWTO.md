@@ -1,17 +1,12 @@
 # HOWTO · Operational Guide
 
-> How to use this architecture day-to-day. For **why** it works, see [SPEC.md](SPEC.md). For known failure modes, see [PATTERNS.md](PATTERNS.md).
-
-[中文](HOWTO.zh.md) | English
+> How to use this architecture day-to-day. For **why** it works + known failure modes + anti-bloat patterns, see [SPEC.md](SPEC.md).
 
 ---
 
-## 1. Is this for you? (30-second judgment)
+## 1. Is this for you?
 
-| Project profile | Use this |
-|---|---|
-| Multi-session / multi-month / AI as active collaborator / multiple sub-tasks / decision reversals likely | ✅ Yes |
-| Single session / single task / simple workflow / pure human-authored | ❌ Overkill — plain README + git log is enough |
+Use this if your project is multi-session, multi-month, AI-collaborative, with possible decision reversals. Plain README + git log suffices for simpler workflows.
 
 ---
 
@@ -66,7 +61,16 @@
 
 ```
 [ ] mkdir <project> && cd <project> && git init
-[ ] Copy templates/ files into project root and docs/, instances/<active>/
+[ ] mkdir -p docs instances/<active>/docs instances/<active>/reports
+[ ] Copy templates explicitly:
+    - templates/CLAUDE.md       → CLAUDE.md
+    - templates/README.md       → README.md
+    - templates/HOWTO.md        → HOWTO.md
+    - templates/ROADMAP.md      → docs/ROADMAP.md
+    - templates/CONVENTIONS.md  → docs/CONVENTIONS.md
+    - templates/STATE.md        → instances/<active>/STATE.md
+    - templates/INSTANCE_README.md → instances/<active>/README.md
+    - templates/TASKS.md        → instances/<active>/docs/TASKS.md
 [ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, etc.)
 [ ] CLAUDE.md          ≤30 lines — 5 content types table + Hard rules + Commit policy
 [ ] README.md          ≤30 lines — top-level layout + entry table
@@ -76,7 +80,7 @@
 [ ] instances/<active>/docs/TASKS.md    T1-TN spec only (no status)
 [ ] instances/<active>/reports/         empty directory; reports fill in as tasks complete
 [ ] (optional) instances/<frozen>/.aiignore  for frozen baseline instances
-[ ] git add -A && git commit -m "Bootstrap with anti-entropy-docs"
+[ ] git add -A && git commit -m "Bootstrap with doc-spine"
 ```
 
 ---
@@ -101,21 +105,15 @@ If you're inheriting or recovering a project that has accumulated prose status a
 
 | Wrong | Right |
 |---|---|
-| Status prose creeps into TASKS / reports / sub-instance docs | All status → `STATE.md` |
-| Reversal adds a `SUPERSEDED` banner on top of an old report | New event in STATE log + report frontmatter field updated |
-| Listing categories with a closed enum ("dictionary of allowed scopes") | "Examples + extend as needed" (avoid premature crystallization) |
-| Adding a new rule to CLAUDE.md without a boundary marker | If it's a special case, append a 1-line blockquote: "This is a <X> special case (reason); similar rules belong in CONVENTIONS, not here." |
-| Same information in multiple files | Single source + cross-file pointer references |
-| Editing history in prose ("correction" paragraphs) | `git revert` + new event |
+| Status prose duplicated across files (TASKS / reports / sub-instance docs) | All status → `STATE.md`; other files use pointers |
+| Editing past entries (`SUPERSEDED` banner, "correction" paragraph) | New event in STATE log; `git revert` if factually wrong |
+| Closed-enum category list ("dictionary of allowed scopes") | "Examples + extend as needed" |
+| New CLAUDE.md rule without a boundary marker | If special case, append blockquote: "Special case for X; similar rules → CONVENTIONS" |
+
+Root causes and fixes for each: [SPEC §8-§9](SPEC.md).
 
 ---
 
-## 7. The philosophy in one sentence
+## 7. Practice path
 
-> **Each event is written once; one writing lands in one location; one location carries one content type.**
-
-Don't understand a specific situation? Return to this sentence and the [SPEC.md](SPEC.md) §3 mechanisms. The architecture is **derived** — every rule should be traceable to these clauses.
-
----
-
-**Practice path**: walk through scenarios A / B / C with a real event in your project. On the first try, it feels unnatural (you'll want to add prose to TASKS). After 3-5 repetitions, muscle memory takes over. The architecture is designed to be **simpler than the alternative once internalized** — not harder.
+Walk through scenarios A / B / C with a real event in your project. On the first try, it feels unnatural — you'll want to add prose to TASKS. After 3-5 repetitions, muscle memory takes over. The architecture is designed to be simpler than the alternative once internalized, not harder.

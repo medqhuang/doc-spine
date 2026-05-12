@@ -1,24 +1,33 @@
 # widget-research · Conventions
 
-> Minimal version for this demo. Real projects expand on this template — see [../../../templates/CONVENTIONS.md](../../../templates/CONVENTIONS.md).
+> Minimal example conventions. Real projects should expand this only when a real need appears.
 
-## 5 content types · single-source map
+## 1. Directory layout
+
+```
+widget-research/
+├── CLAUDE.md
+├── README.md
+├── docs/
+│   ├── ROADMAP.md
+│   └── CONVENTIONS.md
+└── instances/widget-v1/
+    ├── STATE.md
+    ├── docs/TASKS.md
+    └── reports/T1_report.md
+```
+
+## 2. Content map
 
 | Content | Location |
 |---|---|
-| State / decisions / events | `instances/widget-v1/STATE.md` |
+| Live state / decisions / reversals | `instances/widget-v1/STATE.md` |
 | Task spec | `instances/widget-v1/docs/TASKS.md` |
-| Completion reports | `instances/widget-v1/reports/T<N>_report.md` |
-| Strategy / red lines | `docs/ROADMAP.md` |
-| Cross-project knowledge | user-level memory |
+| Completion report + data trace | `instances/widget-v1/reports/T<N>_report.md` |
+| Strategy / red lines / locked decisions | `docs/ROADMAP.md` |
 
-## File naming
+## 3. Demo policy
 
-- Task reports: `T1_report.md`, `T2_report.md`, ...
-- Sub-instance (would normally be here): `widget-v1/01_measure/<run_id>/`
-
-## Git workflow
-
-- Commit message says **why**, not what
-- No force push to main
-- Failed pre-commit hook → fix and create a new commit (do NOT amend)
+- Keep `TASKS.md` status-free.
+- Keep reports as data trace, not running commentary.
+- Use `STATE.md` event log for all state transitions.

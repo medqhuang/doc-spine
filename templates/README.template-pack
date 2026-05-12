@@ -1,10 +1,12 @@
-Template Pack · anti-entropy-docs
+Template Pack · doc-spine
 
 These files are skeletons for a new project. Copy them to your target project:
 
   templates/CLAUDE.md         →  <PROJECT>/CLAUDE.md
   templates/README.md         →  <PROJECT>/README.md
+  templates/HOWTO.md          →  <PROJECT>/HOWTO.md
   templates/STATE.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/STATE.md
+  templates/INSTANCE_README.md → <PROJECT>/instances/<ACTIVE_INSTANCE>/README.md
   templates/TASKS.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/docs/TASKS.md
   templates/ROADMAP.md        →  <PROJECT>/docs/ROADMAP.md
   templates/CONVENTIONS.md    →  <PROJECT>/docs/CONVENTIONS.md
@@ -19,6 +21,5 @@ Placeholders to fill in:
   <REGISTRY>               if you have a pure registry, e.g., HPC_inventory
 
 Optional next:
-  - Add `HOWTO.md` at the project root (copy `../HOWTO.md`) — gives future you / contributors a quick architecture reference
   - Add `.aiignore` to any frozen / read-only instance directory
   - Add a domain-specific entry to CONVENTIONS.md §6

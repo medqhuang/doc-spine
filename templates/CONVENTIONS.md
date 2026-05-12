@@ -52,7 +52,7 @@
 
 | Name | Role | Example |
 |---|---|---|
-| `README.md` | Directory-level navigation (what's here, status, entry points) | `instances/<INSTANCE>/README.md` |
+| `README.md` | Directory-level navigation (what's here and where to enter) | `instances/<INSTANCE>/README.md` |
 | `INDEX.md` | Topic / role / time-based cross-cutting navigation | `<frozen_instance>/artifacts/INDEX.md` |
 | `_legacy/` | Frozen / deprecated files, byte-level preserved | `<frozen_instance>/_legacy/` |
 | `_archive/` | Project-level historical snapshots (e.g., post-reorganization) | `docs/_archive/` |

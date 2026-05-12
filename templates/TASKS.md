@@ -4,7 +4,7 @@ Task spec only. **Current state / in-flight jobs / event log → [`../STATE.md`]
 
 ## Agent read path (this file = L2)
 
-L0-L4 layering: see [`../../docs/ROADMAP.md`](../../docs/ROADMAP.md) §Agent read path. This file carries **task spec only** (input / steps / output / completion criteria / known risks / locked decisions).
+L0-L4 layering: see [`../../../docs/ROADMAP.md`](../../../docs/ROADMAP.md) §Agent read path. This file carries **task spec only** (input / steps / output / completion criteria / known risks / locked decisions).
 
 ## Task graph
 

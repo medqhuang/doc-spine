@@ -34,7 +34,7 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 > Scope examples: `project` / `task:T<N>` / `subinstance:<path>` (extend as needed)
 > Event type examples: `milestone` / `action` / `discovery` / `decision_reversal` / `structural`
 
-- **YYYY-MM-DD** · project · structural · initial bootstrap from anti-entropy-docs template
+- **YYYY-MM-DD** · project · structural · initial bootstrap from doc-spine template
 
 ---
 

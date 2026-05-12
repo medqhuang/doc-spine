@@ -10,29 +10,7 @@ The researcher began with one explicit principle inherited from Project A's fail
 
 ## How it was set up
 
-### Top-level structure (final)
-
-```
-project_B/
-├── CLAUDE.md                    24 lines — AI auto-load entry
-├── README.md                    21 lines — human entry (top-level orient)
-├── HOWTO.md                     102 lines — architecture usage guide
-├── docs/
-│   ├── ROADMAP.md               156 lines — strategy / red lines / DAG
-│   ├── CONVENTIONS.md           93 lines — naming / git / frozen boundary
-│   ├── HPC_inventory.yaml       145 lines — compute resource registry
-│   └── _archive/                historical snapshots (do not delete)
-├── library/                     reusable code library
-├── instances/
-│   ├── <frozen_baseline>/       .aiignore enforces read-only
-│   └── <active>/
-│       ├── STATE.md ⭐⭐        66 lines — frontmatter + task graph + event log + sub roster
-│       ├── README.md            65 lines — instance entry + stage dirs + historical doc navigation
-│       ├── docs/TASKS.md        411 lines — T1-T9 spec only, NO status
-│       ├── reports/
-│       │   └── T1_report.md     444 lines — completion report, data trace
-│       └── <stage_NN>/<sub-instance>/  inputs/sbatch/scripts/structures
-```
+Directory layout follows [SPEC §5](../SPEC.md). Concrete sizes in Project B: `CLAUDE.md` 24 lines / `README.md` 21 / `HOWTO.md` 102 / `docs/ROADMAP.md` 156 / `docs/CONVENTIONS.md` 93 / `docs/HPC_inventory.yaml` 145 / instance `STATE.md` 66 / instance `README.md` 65 / `docs/TASKS.md` 411 (spec only) / `reports/T1_report.md` 444 (data trace). A frozen baseline instance was carried over with `.aiignore` enforcing read-only.
 
 ### The single source: STATE.md
 
@@ -130,19 +108,13 @@ STATE.md's high-frequency status fields became YAML frontmatter (5 lines of stru
 
 ## Anti-bloat patterns observed during evolution
 
-Two micro-patterns emerged from real near-failures, documented in [PATTERNS.md](../PATTERNS.md):
+Two micro-patterns emerged from near-failures during Project B's evolution — both crystallized into [SPEC.md §9](../SPEC.md): **don't harden enums** (the scope-dictionary close-set trap) and **precedent boundary annotations** (a special-case rule without a fence will be generalized).
 
-1. **Don't harden enums.** When listing scope values for the event log, the initial draft called it "scope dictionary." This subtly closed the set. Changed to "scope examples — extend as needed." The next phase of work introduced new scope values without friction.
-
-2. **Precedent boundary annotations.** When adding STATE-specific writing discipline to CLAUDE.md (a special case for the most architecturally-critical file), a one-line blockquote was added: "This is a STATE.md special case (reason: high-frequency append-only is architecturally critical); writing rules for other files belong in CONVENTIONS.md, not here." Without this fence, the precedent would invite similar rules for TASKS / reports / ROADMAP, ballooning the entry file.
-
-## The deepest lesson
+The deeper meta-principle from these observations:
 
 > **In an evolving architecture, the most dangerous omission is not a missing rule — it is a missing boundary.**
 
-You can always add a rule when a real problem demands it. But a special-case rule without an explicit boundary marker will, with high probability, be generalized by future contributors. Two or three such generalizations and the entry file is no longer lean.
-
-This insight emerged from observing the path of Project B's CLAUDE.md: when section count grew from 4 to 5 (with the STATE writing discipline addition), the natural follow-up question was "should we add similar discipline sections for TASKS and reports?" The answer is no — but without an explicit boundary, the answer drifts toward yes.
+This insight emerged from observing Project B's CLAUDE.md path: when section count grew from 4 to 5 (with the STATE writing discipline addition), the natural follow-up question was "should we add similar discipline sections for TASKS and reports?" The answer is no — but without an explicit boundary, the answer drifts toward yes.
 
 ## Anonymization notes
 

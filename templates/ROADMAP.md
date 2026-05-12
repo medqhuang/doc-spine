@@ -18,13 +18,6 @@
 
 ---
 
-## Current position
-
-- **Live state / active task / in-flight jobs** → [`instances/<ACTIVE_INSTANCE>/STATE.md`](../instances/<ACTIVE_INSTANCE>/STATE.md) ★
-- **Task spec** → [`instances/<ACTIVE_INSTANCE>/docs/TASKS.md`](../instances/<ACTIVE_INSTANCE>/docs/TASKS.md)
-
----
-
 ## Project · what and why
 
 <2-4 sentences: what does this project do? What's the goal? What's the deliverable?>
@@ -117,5 +110,4 @@ Milestones / decision reversals / state changes → [`instances/<ACTIVE_INSTANCE
 | **Live state / active task / in-flight jobs** | [`instances/<ACTIVE_INSTANCE>/STATE.md`](../instances/<ACTIVE_INSTANCE>/STATE.md) ★ |
 | Task spec | [`instances/<ACTIVE_INSTANCE>/docs/TASKS.md`](../instances/<ACTIVE_INSTANCE>/docs/TASKS.md) |
 | Naming / git workflow / 5 content types map | [`CONVENTIONS.md`](CONVENTIONS.md) |
-| Library API (if applicable) | [`../<library>/README.md`](../<library>/README.md) |
 | Active instance overview + historical doc topic nav | [`../instances/<ACTIVE_INSTANCE>/README.md`](../instances/<ACTIVE_INSTANCE>/README.md) |
