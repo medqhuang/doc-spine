@@ -33,9 +33,11 @@ Cross-file **ownership and write flow** are one-way: downstream files may read u
 
 For example: `STATE.md` is upstream of `TASKS.md` (task graph derives from state). `TASKS.md` should not have a "current status" section that mirrors `STATE.md`'s frontmatter. If `TASKS.md` needs to show status, it points to `STATE.md`.
 
-### 2.3 Append-Only (event log discipline)
+### 2.3 Append-Only event log
 
-State changes, decisions, and reversals are recorded as **append-only events**. Past entries are not edited.
+**Scope**: append-only applies to the **event log inside `STATE.md`**, not the whole file. Frontmatter (current snapshot) and task graph (status aggregation) are **overwritten** on update — only the event log is the immutable audit trail.
+
+State changes, decisions, and reversals are recorded as **append-only events** in the event log. Past entries are not edited.
 
 When a previous decision is reversed, you do NOT:
 - Edit the old entry to add `(SUPERSEDED)` annotation
@@ -129,6 +131,8 @@ When an event occurs (job completes, decision is made, status changes), the upda
 
 The 1-3 threshold is also the audit signal — see [§10 Drift detection](#10-drift-detection).
 
+**Triggering events** include: a job completing, a decision being made, a discovery surfacing — **and the session boundary itself** (user signals "wrap up" / requests a commit). The session boundary is a triggering event because, regardless of whether the underlying task finished, the audit trail must reflect what advanced before the commit lands. See [HOWTO Scenario D](HOWTO.md) for the session-boundary sub-cases.
+
 ---
 
 ## 7. STATE.md anatomy
@@ -145,6 +149,10 @@ active_task: <task_id>
 active_subinstance: <relative_path>
 ---
 ```
+
+`active_task` is a **focus pointer**, not the full set of in-flight tasks. It answers "where should the next session start reading?" — a single session entry point. When multiple tasks advance in parallel, that fact is expressed by the task graph (§7.2), where each row carries its own `in_flight` / `blocked-by` status. Keeping `active_task` singular avoids duplicating the in-flight set in two places and forces an explicit "what to advance first" choice at session end.
+
+**Reading order on session start**: read `active_task` first, then scan the task graph for any other `in_flight` rows that also need attention this session.
 
 The fields below are **optional** — add them only when the truth doesn't already live elsewhere. **Omit `in_flight_jobs` / `next_action` / `last_updated` if the truth lives in an external system (SLURM queue, CI status, git mtime) or in the event log itself**; field-izing them duplicates state that will go stale and force reconciliation cost.
 
@@ -164,7 +172,7 @@ This block is **overwritten** on every update; it represents the current snapsho
 
 ### 7.2 Task graph (semi-stable)
 
-A table showing each task's status (`done` / `in_flight` / `blocked-by`) and a one-line description. Updated when tasks transition states.
+A table showing each task's status (`done` / `in_flight` / `blocked-by`) and a one-line description. **Overwritten** when tasks transition states — this is a derived view of the event log, kept inline for fast scanning.
 
 ### 7.3 Event log (append-only)
 
@@ -246,7 +254,7 @@ Micro-patterns that prevent the architecture from rigidifying as it evolves.
 **Fix**: When adding a special-case rule, **end the section with a one-line blockquote** stating: "This section is a special case for X (reason: Y). Similar rules for other files belong in CONVENTIONS.md, not here."
 
 **Example**: In `CLAUDE.md`, after the §STATE writing discipline section:
-> *This section is a STATE.md special case (high-frequency append-only is architecturally critical). Writing details for other files (TASKS / reports / ROADMAP) belong in CONVENTIONS.md, not here.*
+> *This section is a STATE.md special case (event log append-only writing is architecturally critical). Writing details for other files (TASKS / reports / ROADMAP) belong in CONVENTIONS.md, not here.*
 
 **Wider lesson — missing boundary > missing rule**: In an evolving architecture, the most dangerous omission is not a missing rule, it is a missing boundary. A special-case rule without an explicit boundary will, with high probability, be generalized by future contributors. Every special-case rule should carry its own fence; the fence costs one line, missing it costs a refactor.
 

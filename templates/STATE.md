@@ -13,7 +13,7 @@ last_updated: 2026-XX-XX
 
 # <INSTANCE_NAME> · State
 
-> **Single source of truth for state + events**, append-only. Current snapshot lives in the YAML frontmatter above; task graph and event log are below. Discipline → [`../../CLAUDE.md`](../../CLAUDE.md); spec → [`docs/TASKS.md`](docs/TASKS.md); reports → [`reports/`](reports/); strategy → [`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).
+> **Single source of truth for state + events.** Frontmatter above = current snapshot (overwrite); task graph + event log below: task graph is a state aggregation (overwrite); **only the event log is append-only**. Discipline → [`../../CLAUDE.md`](../../CLAUDE.md); spec → [`docs/TASKS.md`](docs/TASKS.md); reports → [`reports/`](reports/); strategy → [`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).
 
 ## Task graph
 

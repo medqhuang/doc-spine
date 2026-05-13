@@ -29,7 +29,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 
 ### Scenario A · Session start (1-minute orient)
 
-1. Read `STATE.md` frontmatter (5 lines) → know `active_task` + `in_flight_jobs` + `next_action`.
+1. Read `STATE.md` frontmatter (5 lines) → know `active_task` (the session focus) + `in_flight_jobs` + `next_action`. Then glance at the task graph for any other `in_flight` rows advancing in parallel.
 2. Skim the last 3 event-log entries → know what the AI did in the previous session.
 3. If something looks wrong → push back. Otherwise → let the AI proceed per `next_action`.
 
@@ -54,6 +54,29 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 3. **If spec changed** → edit the relevant `docs/TASKS.md §task` field in place.
 4. **Do NOT** modify `reports/` (data trace is frozen).
 5. **Do NOT** add a `SUPERSEDED` banner anywhere (the event log is the audit trail).
+
+### Scenario D · Session end / commit trigger
+
+**Trigger**: user signals "wrap up" / "收工" / "结束" — **or** asks for a commit. Either signal means `STATE.md` must reflect current truth before the commit lands.
+
+AI's first move: classify the session-end state into one of three sub-cases.
+
+#### D.1 · Task still running (job queued / executing, not yet finished)
+1. `STATE.md` frontmatter: write `in_flight_jobs` entries (JID + type + submitted time); set `next_action = "wait for JID X, then do Y"`.
+2. Event log: append `YYYY-MM-DD · task:T<N> · action · submitted JID X (<type>). ref: sbatch/<name>.sbatch`
+3. Do **not** flip `active_task` or task-graph status — the task is still in flight.
+4. Commit per project policy.
+
+#### D.2 · Task just completed
+This is **Scenario B**. The commit is the natural end of that flow.
+
+#### D.3 · Interim session — discussion / scoping / setup only (no job submitted, no task done)
+1. `STATE.md` frontmatter: update `next_action` only.
+2. Event log: append a `discovery` or `action` line describing what the session advanced (a decision considered, a file restructured, a path scoped).
+3. No task-graph change; no report.
+4. Commit per project policy. Empty-result sessions still get one event line — the audit trail must explain the gap.
+
+**Commit policy**: doc-spine itself does not auto-commit. Whether the commit-trigger signal also runs `git commit` is a project decision recorded in `CLAUDE.md` (see the template's `Commit policy:` line).
 
 ---
 
