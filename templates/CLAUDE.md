@@ -31,4 +31,4 @@ Auto-loaded. Read this + `instances/<ACTIVE_INSTANCE>/STATE.md` frontmatter (sta
 
 When the user signals session end ("收工" / "wrap up" / "结束") **or** asks to commit, ensure `STATE.md` reflects current truth before committing — classify the state (task still running / just completed / interim) and update per [HOWTO Scenario D](HOWTO.md).
 
-Commit policy: [define project authorization here, or leave default Claude Code git safety in place.]
+Commit policy: [define project authorization here, or leave default Claude Code git safety in place. If AI is authorized to commit autonomously but you want certain file types excluded from auto-stage (e.g., compute inputs, generated artifacts), name them here — AI will surface them at task completion per [HOWTO Scenario B](HOWTO.md) step 4.]

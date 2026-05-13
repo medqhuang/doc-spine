@@ -35,14 +35,17 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 
 ### Scenario B · Task completion (AI finishes a task)
 
+**Trigger**: user signals "T<N> done" / "task complete" / "收官" — an explicit task-boundary statement.
+
 1. **Update `STATE.md` frontmatter**: set `active_task` to the next task, clear `in_flight_jobs`, update `next_action`.
 2. **Append a single event-log line** to `STATE.md`:
    ```
    YYYY-MM-DD · task:T<N> milestone · <one-line summary + key data + JID>. ref: reports/T<N>_report.md
    ```
 3. **Create `reports/T<N>_report.md`** with the full data + interpretation.
-4. **`git commit`** (one logical change, message says **why**).
-5. **Do NOT** add an "update" paragraph to `TASKS.md` or the old report header.
+4. **Stage decision for non-doc files**: if the project's `Commit policy` excludes certain file types from AI's auto-stage (e.g., compute inputs, generated artifacts), list any modified files of that kind under the completed task's path and ask the user whether to include them in this commit. User confirmation lifts the exclusion for this commit only.
+5. **`git commit`** (one logical change, message says **why**).
+6. **Do NOT** add an "update" paragraph to `TASKS.md` or the old report header.
 
 ### Scenario C · Decision reversal (a prior choice is overturned)
 
