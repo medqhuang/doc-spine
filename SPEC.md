@@ -66,6 +66,8 @@ There is also an implicit **type 6: pure registry** (resource inventories, asset
 
 **The absence of a 6th type should be the default state.** Adding new types only when real demand emerges (e.g., a paper-writing phase that needs a canonical numbers ledger) is the architecture working as intended.
 
+Note: a pivot-heavy phase generates a lot of **intermediate scratch** (exploration drafts that are not yet any of the five types). That is *not* a 6th content type — it is process material whose canonical source is undecided. It gets a holding area + catalog, not a content-type slot. See §8.4.
+
 ---
 
 ## 4. Design principles
@@ -100,6 +102,7 @@ There is also an implicit **type 6: pure registry** (resource inventories, asset
 │       ├── README.md          instance entry + stage directories + historical doc topic navigation
 │       ├── docs/TASKS.md      T1-TN spec (pure spec, no status)
 │       ├── reports/T<N>_report.md   completion reports + data trace
+│       ├── scratch/           (pivot-phase only) non-canonical exploration drafts + INDEX.md catalog; must promote — see §8.4
 │       └── <stage_NN>/<sub-instance>/  inputs / sbatch / scripts / structures + meta/README
 ```
 
@@ -170,6 +173,14 @@ last_updated: <YYYY-MM-DD>
 
 This block is **overwritten** on every update; it represents the current snapshot.
 
+**Example — a load-bearing singular claim.** When the project has one high-frequency, load-bearing assertion (a paper's thesis, a chosen working hypothesis), give it a dedicated field rather than letting it sprawl into `active_task` prose or into scratch files:
+
+```yaml
+thesis: "<one-line current claim> · support: <pointers to reports/ROADMAP> · lineage: A →[date]→ B (full history in event log)"
+```
+
+Overwrite it on each pivot; append the reversal to the event log. This keeps `active_task` a pure focus pointer and keeps the thesis readable in exactly one place. See §8.4.
+
 ### 7.2 Task graph (semi-stable)
 
 A table showing each task's status (`done` / `in_flight` / `blocked-by`) and a one-line description. **Overwritten** when tasks transition states — this is a derived view of the event log, kept inline for fast scanning.
@@ -229,6 +240,23 @@ Not hypothetical. Each has occurred and triggered a structural fix.
 
 **Fix**: Audit entry files for inter-section duplication. Each section must answer a question the others don't answer.
 
+### 8.4 Pivot-phase scratch sprawl and the load-bearing claim fragmenting
+
+**Symptom**: During an exploratory phase with frequent thesis / strategy pivots, intermediate documents multiply at the edge of the five types (derivation drafts, competitor audits, reframe proposals, probe plans). They pile into `instances/<active>/docs/` next to `TASKS.md`. Worse, the project's one load-bearing claim — the paper's thesis — ends up asserted across several of them, each labelled "authority." The STATE frontmatter then swells with prose reconciling which copy is current ("authority = A + B; do not trust stale C").
+
+**Root cause — two compounding errors**:
+1. These artifacts have no home. None of the five content types fits them (not task-spec, not final report, not cross-phase strategy), so they accrete into the spec directory and get silently read as canonical.
+2. A scratch file is allowed to be a single source. But "the current thesis" is type-1 state (overwrite) and/or type-4 strategy (a locked decision) — never a property of a draft file. When a draft holds the authority, every pivot forks a new file and the frontmatter degrades into prose reconciliation. This is §8.1's prose-drift, recurring one level down.
+
+**Fix — a holding area, a promotion rule, and a dedicated field**:
+- **Give scratch its own directory, separate from the spec.** Intermediate exploration docs live in `instances/<active>/scratch/` — a sibling of `docs/` and `reports/`, never mixed in with `TASKS.md`. The directory name itself signals "not canonical." A catalog file `scratch/INDEX.md` lists each doc with its status (active / superseded) and its **promotes-to** target; status lives in the INDEX, never in the doc body (per §8.2).
+- **Scratch is non-canonical and must promote.** Any content that becomes authoritative is **promoted** to its real single source (STATE / ROADMAP / report), leaving the scratch doc as a pointer. A scratch doc still holding an unpromoted authority is the drift signal — not the file count (see below).
+- **A load-bearing singular claim gets a dedicated overwrite field.** The current thesis is one high-frequency overwrite value → a named frontmatter field in STATE.md (§7.1); pivots overwrite it in place, reversals append to the event log. It is read in exactly one place; the file fork disappears.
+
+**On sprawl — volume is not the failure; a retained authority is.** A scratch directory will grow, and that is fine: by construction it holds no canonical content and no status prose, so it cannot produce the version-drift of §8.1 no matter how large — it is a safely-ignorable region. The health metric is not the directory's size but whether its **active** set contains any doc cited as an authority while still sitting in scratch. Do not schedule periodic cleanup (that is maintenance bloat, §9.3). Instead, at natural boundaries — task completion (HOWTO Scenario B), stage end — mark any draft already absorbed by a report as superseded in the INDEX; the file stays in place for its audit links, moving only from the "active" list to the "superseded" list. The active list — the only part read day-to-day — stays small.
+
+> *Why this is not a 6th content type (cf. §3): a content type is "content with a canonical single source." Intermediate scratch is by definition content whose single source is not yet decided — promoting it IS deciding. Minting it as a content type would license exactly the SOT-squatting this fix removes.*
+
 ---
 
 ## 9. Anti-bloat patterns (preserve evolution space)
@@ -274,6 +302,7 @@ Low effort, high value:
 - **Status prose leak** — grep for `in-progress` / `pending` / `2026-XX-XX update` / `SUPERSEDED` / `当前状态` across all files. Any hit outside `STATE.md` / `STATE.yaml` is a leak.
 - **Locations-per-event** — when an event occurs (job complete, reversal, status change), count files you update. Healthy ≤3; drift signal ≥4.
 - **Frontmatter drift** — parse YAML frontmatter periodically; verify field values match the prose body. Frontmatter says `active_task: T2` but body still narrates T1 = silent drift.
+- **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4), scan its INDEX `active` list: any draft cited as an authority by STATE / ROADMAP / a report, or with an empty `promotes-to`, is an unpromoted authority — promote it and leave a pointer. Directory size itself is *not* a drift signal; a retained authority is.
 
 ---
 

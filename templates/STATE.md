@@ -8,6 +8,7 @@ in_flight_jobs: []
 #   - {jid: 12345, type: SCF main, cluster: <hpc-name>, submitted: "2026-XX-XXTHH:MM"}
 #   - {jid: 12346, type: <next step>, depends_on: 12345}
 next_action: "<concrete next step — what is the AI / human supposed to do next?>"
+# thesis: "<one-line load-bearing claim> · support: <ptr> · lineage: A →[date]→ B"   # ONLY if the project has one high-frequency load-bearing claim (e.g. a paper thesis); see SPEC §8.4. Omit otherwise.
 last_updated: 2026-XX-XX
 ---
 

@@ -20,8 +20,9 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 | Strategy / red lines / locked decisions / DAG | `docs/ROADMAP.md` |
 | Tooling quirks / cross-project knowledge | `~/.claude/projects/.../memory/` or equivalent |
 | Pure registry (resource paths, asset inventory) | `docs/<name>.yaml` |
+| Intermediate exploration draft (pivot-phase: derivation, audit, reframe proposal, probe plan) | `instances/<active>/scratch/` + a row in `scratch/INDEX.md` — **non-canonical, must promote** (SPEC §8.4) |
 
-**Default state: no 6th content type.** Add new locations only when a real signal demands them.
+**Default state: no 6th content type.** Add new locations only when a real signal demands them. Pivot-phase scratch (the last row) is a holding area, not a content type — see SPEC §8.4.
 
 ---
 
@@ -135,6 +136,7 @@ If you're inheriting or recovering a project that has accumulated prose status a
 | Editing past entries (`SUPERSEDED` banner, "correction" paragraph) | New event in STATE log; `git revert` if factually wrong |
 | Closed-enum category list ("dictionary of allowed scopes") | "Examples + extend as needed" |
 | New CLAUDE.md rule without a boundary marker | If special case, append blockquote: "Special case for X; similar rules → CONVENTIONS" |
+| A scratch / working draft treated as the single source (cited as "authority") | Scratch is non-canonical; promote the content to STATE / ROADMAP / report, leave a pointer (SPEC §8.4) |
 
 Root causes and fixes for each: [SPEC §8-§9](SPEC.md).
 

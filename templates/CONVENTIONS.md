@@ -21,7 +21,8 @@
     │   ├── STATE.md ⭐⭐ status + event log (single source)
     │   ├── README.md     instance entry
     │   ├── docs/TASKS.md task spec (no status)
-    │   └── reports/      completion reports
+    │   ├── reports/      completion reports
+    │   └── scratch/      (pivot-phase) non-canonical drafts + INDEX.md; must promote — see SPEC §8.4
     └── <frozen_baseline>/   .aiignore-enforced read-only (if applicable)
 ```
 
@@ -36,6 +37,8 @@
 | Cross-project knowledge | user-level memory (e.g., `~/.claude/projects/<path>/memory/`) |
 
 **No 6th type by default.** Add only on real signal (e.g., a publication-writing phase that needs a canonical numbers registry).
+
+Intermediate scratch (pivot-phase exploration drafts) is *not* a content type — it gets a holding area `instances/<ACTIVE_INSTANCE>/scratch/` + an `INDEX.md` catalog, and must promote to one of the five. See SPEC §8.4.
 
 ## 3. Frozen-instance policy
 

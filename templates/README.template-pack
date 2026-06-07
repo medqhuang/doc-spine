@@ -23,3 +23,5 @@ Placeholders to fill in:
 Optional next:
   - Add `.aiignore` to any frozen / read-only instance directory
   - Add a domain-specific entry to CONVENTIONS.md §6
+  - When a pivot-heavy phase begins: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
+    (catalog for non-canonical exploration drafts; see SPEC §8.4). Not needed at bootstrap.
