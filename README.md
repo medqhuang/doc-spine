@@ -20,6 +20,8 @@ This repo specifies an architecture that prevents that accumulation. It is **not
 
 Three coupled mechanisms — **Single Source**, **One-Way** ownership, **Append-Only** event log — applied to **5 canonical content types** (state, task spec, completion report, strategy, cross-project knowledge). Each type lives in exactly one file; everything else points to it.
 
+Research / writing projects can opt into a **6th (literature)** type — bibliographic identity in Zotero, project-side evidence & settlement audit in STATE; see [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
+
 Nothing should live in two places. If two files describe the same status, one is stale by definition.
 
 → Full definitions and rationale: [SPEC.md §2-3](SPEC.md).
@@ -51,7 +53,7 @@ Not a substitute for project management (Linear, Jira), doc generators (Sphinx, 
 | [`SPEC.md`](SPEC.md) | Full specification: mechanisms, content types, design principles, failure modes, anti-bloat patterns, file layout |
 | [`HOWTO.md`](HOWTO.md) | Operational guide: lookup tables, 3 daily scenarios, new-project + migration checklists |
 | [`case-studies/`](case-studies/) | Three anonymized case studies — two failures (doc bloat / pivot-phase scratch sprawl), one success (state-sourced) |
-| [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, etc.) |
+| [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, etc.) — incl. `lit-settle.reference.md` (optional literature settlement via Zotero) |
 | [`examples/minimal-research-project/`](examples/minimal-research-project/) | A tiny filled-out project showing the skeleton in action |
 
 ---
@@ -90,7 +92,7 @@ If you remember nothing else, remember this. Everything else in this repo is der
 
 ## Status
 
-Version 0.1 (initial public release). Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: an initial failure (doc bloat), a state-sourced success, and a pivot-phase scratch-sprawl failure caught inside an otherwise-healthy project (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
+Version 0.2 (adds an optional 6th content type — **literature settlement** via Zotero, for research/writing projects; see [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md)). Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: an initial failure (doc bloat), a state-sourced success, and a pivot-phase scratch-sprawl failure caught inside an otherwise-healthy project (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
 
 ## Contributing
 

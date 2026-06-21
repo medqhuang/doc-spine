@@ -21,6 +21,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 | Tooling quirks / cross-project knowledge | `~/.claude/projects/.../memory/` or equivalent |
 | Pure registry (resource paths, asset inventory) | `docs/<name>.yaml` |
 | Intermediate exploration draft (pivot-phase: derivation, audit, reframe proposal, probe plan) | `instances/<active>/scratch/` + a row in `scratch/INDEX.md` — **non-canonical, must promote** (SPEC §8.4) |
+| Citation / literature (research/writing) | Identity in **Zotero** + a `lit·settled` event in `STATE.md` (pointer + audit); settle at boundary — see CONVENTIONS §10 |
 
 **Default state: no 6th content type.** Add new locations only when a real signal demands them. Pivot-phase scratch (the last row) is a holding area, not a content type — see SPEC §8.4.
 
@@ -98,6 +99,7 @@ This is **Scenario B**. The commit is the natural end of that flow.
     - templates/STATE.md        → instances/<active>/STATE.md
     - templates/INSTANCE_README.md → instances/<active>/README.md
     - templates/TASKS.md        → instances/<active>/docs/TASKS.md
+    - templates/lit-settle.reference.md → docs/   (optional; research/writing only)
 [ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, etc.)
 [ ] CLAUDE.md          ≤30 lines — 5 content types table + Hard rules + Commit policy
 [ ] README.md          ≤30 lines — top-level layout + entry table
