@@ -32,8 +32,9 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 ## Event log (append-only, one line per event)
 
 > Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data (JID/refs) + consequence`
-> Scope examples: `project` / `task:T<N>` / `subinstance:<path>` (extend as needed)
-> Event type examples: `milestone` / `action` / `discovery` / `decision_reversal` / `structural`
+> Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` (extend as needed)
+> Event type examples: `milestone` / `action` / `discovery` / `decision_reversal` / `structural` / `settled`
+> Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>(role, decision_ref) · resolved_model · backlog:[…]`
 
 - **YYYY-MM-DD** · project · structural · initial bootstrap from doc-spine template
 

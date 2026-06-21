@@ -26,6 +26,7 @@ Auto-loaded. Read this + `instances/<ACTIVE_INSTANCE>/STATE.md` frontmatter (sta
 1. **Status must not leak**: no `2026-XX-XX update` prose in TASKS / reports / sub-instance docs; all status → `STATE.md`
 2. **Frozen instances** (`instances/<frozen>/`) are read-only by default (enforced by `.aiignore`); reorganization may move old md into `_legacy/`, never edit content
 3. **<DOMAIN-SPECIFIC-RULE>**: e.g., for compute-heavy projects: "HPC large files (`*.save/`, `WAVECAR`, `*.wfc*`) do not rsync back to local"; replace with your domain's equivalent
+4. **Literature via pointers** (research/writing): cite by DOI/arXiv, identity single-sourced in Zotero; settle at task completion, append a `lit·settled` event. See `docs/CONVENTIONS.md §10`.
 
 ## Session end response
 
