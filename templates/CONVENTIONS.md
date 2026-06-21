@@ -118,7 +118,7 @@ Cite in prose / reports in natural form (DOI / arXiv / author-year); **do not ha
 ### Settlement (boundary-triggered; the event log is its own cursor)
 At task / session completion:
 1. **③ main agent (no Zotero)** — take events appended **after the last `lit·settled` event** + the reports they `ref:`; parse DOI/arXiv per doc (grep = coverage floor), recall fills semantics; hand ④ a hot-list (surface form · id · location · `decision_ref`). Skip if none. Cold start (no `lit` event yet) = bootstrap: scan all citation-scope docs.
-2. **④ settle subagent (isolated, with Zotero, model = profile)** — work-merge (arXiv↔DOI only when metadata clearly links; ambiguous → backlog) → dedup-search → add (accept only DOI/arXiv; author-year / no-id / failure → backlog with reason) → `read_pdf` attribution check for decision-supporting refs (counts as "read at settle time"; does **not** imply the decision was based on it) → return a machine-readable receipt. Dirty context (MCP schemas / full PDFs / query round-trips) stays inside the subagent.
+2. **④ settle subagent (isolated, with Zotero, model = profile)** — work-merge (arXiv↔DOI only when metadata clearly links; ambiguous → backlog) → dedup-search → add (accept only DOI/arXiv; author-year / no-id / failure → backlog with reason) → return a machine-readable receipt. **Settlement never opens PDFs**; dirty context (MCP schemas / query round-trips) stays inside the subagent. Attribution/role comes from ③'s hot-list — see *Deep reading* below.
 3. **Main agent writes a settlement event** (append-only) to STATE:
    `YYYY-MM-DD · lit · settled · <DOI→item_key>(role, decision_ref)… · resolved_model · backlog:[locatable items]`
    This one line is audit (replayable) + project role + next cursor.
@@ -129,6 +129,9 @@ At task / session completion:
 
 ### Model
 ④'s model is set by `lit_settle_model` (tiers: light / balanced / strict), **never a hardcoded model id**; the resolved model is recorded in the receipt.
+
+### Deep reading & attribution
+"Which decision a ref supports" (`decision_ref` / role) is judged by the main agent from the project's **marker output** (`papers_md/`), **not** via Zotero `read_pdf`. The PDF source can be Zotero itself — `Zotero (imported PDF) → markerize → papers_md` — so Zotero is the identity **and** PDF home, while `papers_md/` is the project-local deep-read cache. Settlement (④) never opens PDFs.
 
 ### Boundary & known residue (flag, don't patch)
 - Assumes sessions write STATE **alternately** (not high-frequency concurrent append); if concurrent settlement is ever introduced, add an event-log cut + serialized writes.

@@ -17,13 +17,21 @@
 
 ## Settle subagent (isolation chamber)
 - Model: read the `lit_settle_model` tier; record the resolved model in the receipt.
-- Tools: Zotero MCP. Dirty context (schemas / full PDFs / query round-trips) stays here, never returned to the main agent.
+- Tools: Zotero MCP (no PDF reading). Dirty context (schemas / query round-trips) stays here, never returned to the main agent.
 - Steps:
   1. Work-merge: arXiv ↔ journal DOI count as one work only when metadata clearly links them (prefer journal DOI; arXiv as alias). Ambiguous → backlog; no destructive merge/delete.
   2. Dedup: search Zotero by normalized id; if the item exists, reuse it but still append the new `decision_ref → role` relation (identity dedup must not swallow a new role).
   3. Add: accept only DOI / canonical arXiv ids; author-year / no acceptable id / failure → backlog with a reason (e.g. `identifier_missing`). No guess-matching.
-  4. Attribution: for decision-supporting refs, `read_pdf` to check at origin; phrase strictly as "read at settle time", never as "the decision was based on it".
+  4. (No PDF reading in settlement.) Attribution/role is taken from the main agent's hot-list (judged from `papers_md/`), not re-derived here.
   5. Receipt: `{item_key, action(new|existing|backlog|failed), role, decision_ref, resolved_model, unresolved:[{surface, ref, reason}]}`.
+
+## Deep reading (separate from settlement)
+Deep reading uses marker, not Zotero `read_pdf`:
+```
+Zotero (imported PDF) --get_attachment_path / file--> markerize --> papers_md/<name>.md
+```
+- Zotero = cross-project identity + PDF home; `papers_md/` = project-local marker deep-read cache (high-quality text / figures).
+- Attribution (`decision_ref` / role) is judged by the main agent while reading `papers_md`, then passed into ④'s hot-list. ④ never opens PDFs.
 
 ## Boundary
 - Assumes sessions write STATE alternately (not high-frequency concurrent append). If concurrent settlement is introduced: add an event-log cut (record `cut_event_id` at start, write it into the settled event at end) + serialize Zotero writes.
