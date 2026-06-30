@@ -157,11 +157,10 @@ active_subinstance: <relative_path>
 
 **Reading order on session start**: read `active_task` first, then scan the task graph for any other `in_flight` rows that also need attention this session.
 
-The fields below are **optional** — add them only when the truth doesn't already live elsewhere. **Omit `in_flight_jobs` / `next_action` / `last_updated` if the truth lives in an external system (SLURM queue, CI status, git mtime) or in the event log itself**; field-izing them duplicates state that will go stale and force reconciliation cost.
+The fields below are **optional** — add them only when the truth doesn't already live elsewhere. **Omit `in_flight_jobs` / `next_action` / `last_updated` if the truth lives in an external system (SLURM queue, CI status, git mtime) or in the event log itself**; field-izing them duplicates state that will go stale and force reconciliation cost. Likewise **`stage` is not a field** — the active stage is the ROADMAP stage containing `active_task` (already visible in `active_subinstance`'s `<stage_NN>_` path prefix), so field-izing it would duplicate that and drift; see ROADMAP §stages for the stage↔task relationship.
 
 ```yaml
 ---
-stage: <stage_identifier>
 active_task: <task_id>
 active_subinstance: <relative_path>
 in_flight_jobs:

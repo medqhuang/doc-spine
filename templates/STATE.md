@@ -1,6 +1,5 @@
 ---
 # Current state (high-frequency update target — AI/tools grep frontmatter; humans read it directly too)
-stage: 1
 active_task: T0
 active_subinstance: <relative_path_or_null>
 in_flight_jobs: []

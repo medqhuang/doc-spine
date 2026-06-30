@@ -1,5 +1,4 @@
 ---
-stage: 1
 active_task: T2
 active_subinstance: 01_measure/widget_v1_runA_2026-02-01
 in_flight_jobs:

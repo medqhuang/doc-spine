@@ -32,6 +32,8 @@ Main object chain (if applicable):
 
 ## Strategy / stages
 
+> A **stage** is the coarse, decision-driven grouping of one or more **tasks** (`TASKS.md` = the fine, execution-driven unit). **You only ever advance tasks** (HOWTO Scenario B); the active stage is simply the one containing `active_task`. You cross into the next stage when its entry conditions (below) hold — recorded as a `milestone` event in STATE, never a separately-tracked status field.
+
 ```
 Stage 1   : <description>
             Deliverable: <what>
