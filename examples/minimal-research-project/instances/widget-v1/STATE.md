@@ -4,6 +4,7 @@ active_subinstance: 01_measure/widget_v1_runA_2026-02-01
 in_flight_jobs:
   - {jid: 5001, type: stress measurement, started: "2026-02-15", expected_finish: "2026-02-16"}
 next_action: "Wait for jid 5001, then validate stress-vs-strain linearity against the ROADMAP red line."
+thesis: "Widget stress response is linear within ±10% strain · confidence: tentative (direct test = T2, jid 5001) · support: ../../docs/ROADMAP.md §locked decisions · lineage: quadratic →[2026-02-08]→ linear (event log)"
 last_updated: 2026-02-15
 ---
 
@@ -25,10 +26,11 @@ last_updated: 2026-02-15
 
 - 2026-01-01 · project · structural · bootstrap from doc-spine example
 - 2026-01-05 · project · decision · locked Method A because Method B equipment is unavailable until Q2. ref: ../../docs/ROADMAP.md
+- 2026-01-05 · project · decision · modeling framework: quadratic response model, per early widget literature. ref: ../../docs/ROADMAP.md §locked decisions
 - 2026-01-20 · task:T1 · action · baseline run launched (jid 4990)
 - 2026-01-27 · task:T1 · milestone · baseline completed (jid 4990), key result P = 42.1 ± 0.3, within precedent range. ref: reports/T1_report.md
 - 2026-02-03 · task:T1 · discovery · detector channel 7 drifted 2%; T2 must use channels 1-6 only. ref: reports/T1_report.md §2
-- 2026-02-08 · project · decision_reversal · Method A re-evaluated for ±10% strain and remains valid; no method change needed. ref: reports/T1_report.md §7
+- 2026-02-08 · project · decision_reversal · modeling framework quadratic → linear: S-2024 precedent re-analysis shows curvature <2% up to ±10% strain, below our σ; T3 switches to linear fit. ref: ../../docs/ROADMAP.md §locked decisions
 - 2026-02-10 · task:T1 · milestone · T1 closed; all completion criteria met; unblocks T2
 - 2026-02-14 · task:T2 · action · stress measurement input prepared in `01_measure/widget_v1_runA_2026-02-01`
 - 2026-02-15 · task:T2 · action · stress measurement launched (jid 5001)

@@ -29,9 +29,9 @@ Stage 2 : modeling (T3) + write-up
 
 ### Modeling framework
 
-- **Choice**: Linear response model
-- **Date**: 2026-01-01
-- **Rationale**: Widget perturbation is expected to stay in the linear regime; nonlinear extensions are deferred.
+- **Choice**: Linear response model (reversed from quadratic — see STATE event 2026-02-08)
+- **Date**: 2026-02-08 (initial quadratic choice: 2026-01-05)
+- **Rationale**: early widget literature suggested a quadratic term, but S-2024 precedent re-analysis shows curvature <2% up to ±10% strain — below our resolution. Nonlinear extensions deferred.
 
 ## Red lines
 

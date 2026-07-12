@@ -53,7 +53,7 @@ Task spec only. Current state / event log -> [`../STATE.md`](../STATE.md).
 - T1-noted detector drift: restrict to channels 1-6.
 
 **Locked decisions**:
-- Method A continues for T2, per STATE event 2026-02-08.
+- Method A, per ROADMAP §locked decisions.
 - Channels 1-6 only, per STATE event 2026-02-03.
 
 ## T3 · Linear-response model fit + write-up

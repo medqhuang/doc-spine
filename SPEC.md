@@ -226,7 +226,16 @@ Event types (also open enum):
 
 **Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision_reversal`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
 
-> *Boundary: this is a semantics rule, not a schema. Per-claim blocks inside STATE (status grades, evidence lists, falsification registries) stay prohibited — evidence is canonical in `reports/` (STATE points to it), the one load-bearing claim is the `thesis` field (§8.4), and publication-grade claim auditing is the author layer's dossier (§3). A claims ledger inside STATE would be a second evidence home — §8.1's drift in a new coat.*
+Where a claim lives — one role per home:
+
+| Home | Owns |
+|---|---|
+| `thesis` field (§7.1, §8.4) | the currently adopted understanding (the one load-bearing claim) |
+| event log line | the change that moved it — evidence + uncertainty, at the moment it happened |
+| report claims ledger (templates/CONVENTIONS §6) | the claim summary frozen at task completion |
+| author-layer dossier (§3) | the full publication-grade argumentation |
+
+> *Anything richer per-claim inside STATE (status grades, evidence lists, falsification registries) stays prohibited: evidence is canonical in `reports/` — a claims ledger inside STATE would be a second evidence home, §8.1's drift in a new coat.*
 
 ### 7.4 Sub-instance roster (semi-stable)
 
