@@ -16,6 +16,7 @@ Auto-loaded. Read this + `instances/widget-v1/STATE.md` frontmatter (start with 
 
 - Event log is **append-only, one line per event**: `YYYY-MM-DD · scope · event type · summary + key data. ref: <pointer>`
 - Scope examples: `task:T<N> milestone/action/discovery` / `decision_reversal` / `structural` (extend as needed)
+- Scientific findings enter the log as **claims, not facts**: key data carries its uncertainty; consequence notes what remains open / would overturn it. Still one line
 - Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) overwrite in place, never prose
 - History corrections go through `git revert`, never a "correction" paragraph
 

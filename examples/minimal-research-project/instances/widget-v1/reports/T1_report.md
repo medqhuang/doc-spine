@@ -75,3 +75,11 @@ Conclusion: channel 7 drift does not bias the baseline result.
 | Raw data | kept off-repo per size rules |
 | Analysis scripts | `01_measure/widget_v1_runA_2026-02-01/scripts/extract_P.py` |
 | Job ID | 4990 |
+
+## 8. Claims at completion
+
+| Verdict | Claim |
+|---|---|
+| Supported | P = 42.1 ± 0.3 units — robust to channel-7 exclusion (§5), within literature range |
+| Still uncertain | Cause of channel-7 drift (2%) unknown — settled by recalibration against S-2024 before T3 |
+| Rejected | none |

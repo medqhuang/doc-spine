@@ -7,7 +7,7 @@ in_flight_jobs: []
 #   - {jid: 12345, type: SCF main, cluster: <hpc-name>, submitted: "2026-XX-XXTHH:MM"}
 #   - {jid: 12346, type: <next step>, depends_on: 12345}
 next_action: "<concrete next step — what is the AI / human supposed to do next?>"
-# thesis: "<one-line load-bearing claim> · support: <ptr> · lineage: A →[date]→ B"   # ONLY if the project has one high-frequency load-bearing claim (e.g. a paper thesis); see SPEC §8.4. Omit otherwise.
+# thesis: "<one-line load-bearing claim> · confidence: <optional> · support: <ptr> · lineage: A →[date]→ B"   # ONLY if the project has one high-frequency load-bearing claim (e.g. a paper thesis); see SPEC §8.4. Omit otherwise.
 last_updated: 2026-XX-XX
 ---
 
@@ -30,7 +30,7 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 
 ## Event log (append-only, one line per event)
 
-> Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data (JID/refs) + consequence`
+> Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data (value ± uncertainty; JID/refs) + consequence / what remains open`
 > Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` (extend as needed)
 > Event type examples: `milestone` / `action` / `discovery` / `decision_reversal` / `structural` / `settled`
 > Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>(role, decision_ref) · resolved_model · backlog:[…]`

@@ -37,7 +37,7 @@ L0-L4 layering: see [`../../../docs/ROADMAP.md`](../../../docs/ROADMAP.md) §Age
 **Output**: <what this task produces — files, data, deliverables>
 
 **Completion criteria**:
-- <measurable criterion 1>
+- <measurable criterion 1 — a scientific quantity passes with value **and** reliability (uncertainty / convergence / validity range), not the value alone>
 - <measurable criterion 2>
 
 **Known risks**:

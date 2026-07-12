@@ -196,7 +196,7 @@ This block is **overwritten** on every update; it represents the current snapsho
 **Example — a load-bearing singular claim.** When the project has one high-frequency, load-bearing assertion (a paper's thesis, a chosen working hypothesis), give it a dedicated field rather than letting it sprawl into `active_task` prose or into scratch files:
 
 ```yaml
-thesis: "<one-line current claim> · support: <pointers to reports/ROADMAP> · lineage: A →[date]→ B (full history in event log)"
+thesis: "<one-line current claim> · confidence: <optional qualifier, e.g. tentative/supported> · support: <pointers to reports/ROADMAP> · lineage: A →[date]→ B (full history in event log)"
 ```
 
 Overwrite it on each pivot; append the reversal to the event log. This keeps `active_task` a pure focus pointer and keeps the thesis readable in exactly one place. See §8.4.
@@ -223,6 +223,10 @@ Event types (also open enum):
 - `discovery` — new finding that affects downstream
 - `decision_reversal` — prior decision overturned
 - `structural` — reorganization / file move
+
+**Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision_reversal`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
+
+> *Boundary: this is a semantics rule, not a schema. Per-claim blocks inside STATE (status grades, evidence lists, falsification registries) stay prohibited — evidence is canonical in `reports/` (STATE points to it), the one load-bearing claim is the `thesis` field (§8.4), and publication-grade claim auditing is the author layer's dossier (§3). A claims ledger inside STATE would be a second evidence home — §8.1's drift in a new coat.*
 
 ### 7.4 Sub-instance roster (semi-stable)
 

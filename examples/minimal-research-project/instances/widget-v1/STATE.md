@@ -21,7 +21,7 @@ last_updated: 2026-02-15
 
 ## Event log (append-only, one line per event)
 
-> Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data + consequence`
+> Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data (± uncertainty) + consequence / what remains open`
 
 - 2026-01-01 · project · structural · bootstrap from doc-spine example
 - 2026-01-05 · project · decision · locked Method A because Method B equipment is unavailable until Q2. ref: ../../docs/ROADMAP.md

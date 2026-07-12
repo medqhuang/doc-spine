@@ -78,6 +78,8 @@ Each sub-instance contains its own `inputs/`, `sbatch/` or run scripts, `scripts
 
 **Report content (physics / 科学计算 projects):** a completion report is a data trace, not narrative — when it describes what was done or found, anchor every claim to a concrete physical quantity (symbol · value · unit/dimension · uncertainty) **and** the governing formula / law / approximation (or method + key parameters when no closed form applies). No bare prose ("gap improved", "well converged") without the number and the relation behind it — e.g. not "band gap increased" but "E_g(Γ): 1.12 → 1.34 eV (PBE, 12³ k-mesh), E_g = E_c(Γ) - E_v(Γ)". Keeps the trace verifiable cold and greppable by quantity. (Per-file instance of the global rule: a symbol never appears without its physical meaning, unit, and provenance.)
 
+Close the report with a short **claims-at-completion** ledger — supported / still-uncertain / rejected — each entry one line: claim + number + (if uncertain) what observation would settle or overturn it. The ledger freezes with the report; live claim status stays in STATE (thesis field / event log), never here.
+
 [Add project-specific conventions here. Examples:
 - For DFT projects: pseudo-potential conventions, k-mesh constraints, HPC partition defaults
 - For software projects: language style guide pointers, framework conventions, deployment targets
