@@ -101,7 +101,7 @@ This is **Scenario B**. The commit is the natural end of that flow.
     - templates/TASKS.md        → instances/<active>/docs/TASKS.md
     - templates/lit-settle.reference.md → docs/   (optional; research/writing only)
 [ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, etc.)
-[ ] CLAUDE.md          ≤30 lines — 5 content types table + Hard rules + Commit policy
+[ ] CLAUDE.md          <40 lines — 5 content types table + Hard rules + Commit policy
 [ ] README.md          ≤30 lines — top-level layout + entry table
 [ ] docs/ROADMAP.md    strategy + red lines + DAG skeleton
 [ ] docs/CONVENTIONS.md  naming + git workflow + frozen boundaries

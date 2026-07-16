@@ -109,7 +109,7 @@ Generation is regulated by the charters, including an independence red line: the
 
 ```
 <project>/
-├── CLAUDE.md ⭐               ≤30 lines — 5-content-types table + Hard rules + Commit policy
+├── CLAUDE.md ⭐               <40 lines — 5-content-types table + Hard rules + Commit policy
 ├── README.md                  ≤30 lines — top-level layout + entry table
 ├── HOWTO.md                   (optional) — local quick-reference for the architecture
 ├── docs/
