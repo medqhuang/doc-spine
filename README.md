@@ -94,7 +94,7 @@ If you remember nothing else, remember this. Everything else in this repo is der
 
 ## Status
 
-Version 0.4 — STATE events carry **claim semantics** (key data with uncertainty + what would overturn the conclusion; [SPEC §7.3](SPEC.md)). Version history lives in `git log` — one commit per version, no changelog prose here. Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: two failures (doc bloat; pivot-phase scratch sprawl) and one state-sourced success (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
+Version 0.5 — the dossier reworks takeover: exam ceremony replaced by **in-flow checks** (inline hands-on anchors, closed-book generative check, tiered submission gate), plus **route history** (the search story) and a task-coverage scan ([SPEC §3](SPEC.md)). Version history lives in `git log` — one commit per version, no changelog prose here. Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: two failures (doc bloat; pivot-phase scratch sprawl) and one state-sourced success (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
 
 ## Contributing
 
