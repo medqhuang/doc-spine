@@ -22,7 +22,7 @@ Three coupled mechanisms — **Single Source**, **One-Way** ownership, **Append-
 
 Research / writing projects can opt into a **6th (literature)** type — bibliographic identity in Zotero, project-side evidence & settlement audit in STATE; see [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
 
-Heavily AI-driven projects can further opt into the **author layer** — two downstream types written at closeout that give the human owner back what execution artifacts can't: a **tutorial** ("what is this project", image-first teaching) and a **first-author dossier** ("can I sign this" — claim-indexed evidence grades, retraction conditions, weakness table, reconstruction oral exam). See [SPEC.md §3](SPEC.md) and the two charters in [`templates/`](templates/).
+Heavily AI-driven projects can further opt into the **author layer** — two downstream types written at closeout that give the human owner back what execution artifacts can't: a **tutorial** ("what is this project", image-first teaching) and a **first-author dossier** ("can I sign this" — claim-indexed evidence grades, retraction conditions, weakness table, route history, generative takeover check). See [SPEC.md §3](SPEC.md) and the two charters in [`templates/`](templates/).
 
 Nothing should live in two places. If two files describe the same status, one is stale by definition.
 

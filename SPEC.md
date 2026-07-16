@@ -77,7 +77,7 @@ Projects that need a human to (re)take first-author responsibility opt into two 
 | Content type | Answers | Canonical location | Charter (contract) |
 |---|---|---|---|
 | **Tutorial** | "what is this project" — teaches the domain story to a zero-context reader, image-first | `docs/tutorial/` | [`templates/TUTORIAL_WRITING_STANDARD.md`](templates/TUTORIAL_WRITING_STANDARD.md) (zh) |
-| **First-author dossier** | "can I sign this" — story map, per-claim evidence grades + retraction conditions, exhaustive weakness table, machine reconciliation report, spot-check menu, reconstruction oral exam | `docs/FIRST_AUTHOR_DOSSIER.md` (per paper) | [`templates/DOSSIER_WRITING_STANDARD.md`](templates/DOSSIER_WRITING_STANDARD.md) (zh) |
+| **First-author dossier** | "can I sign this" — story map + route history (the search story), per-claim evidence grades + retraction conditions + inline hands-on anchors, exhaustive weakness table, machine reconciliation (incl. task-coverage scan), generative takeover check with a tiered submission gate | `docs/FIRST_AUTHOR_DOSSIER.md` (per paper) | [`templates/DOSSIER_WRITING_STANDARD.md`](templates/DOSSIER_WRITING_STANDARD.md) (zh) |
 
 Architectural fit — three clauses keep the layer entropy-safe:
 
