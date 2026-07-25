@@ -2,7 +2,8 @@
 
 > `CONVENTIONS.md §10` is the contract (what); this file is one implementation (how).
 > Swap the environment and re-implement against the contract — §10 does not change.
-> Environment: Claude Code + Zotero MCP (Web API) + git.
+> Environment: Claude Code + Zotero MCP (**Web API only** — `ZOTERO_LOCAL=false`) + git.
+> Binding constraint, not a note: **every step below must hold with Zotero desktop closed.** If a step needs a local-mode-only tool, it is the wrong step — find the Web API equivalent. (Zotero's local API is read-only anyway, so all writes here already go over the Web API.)
 
 ## Config
 - `lit_settle_model` — the settle subagent's model **tier** (light / balanced / strict), mapped to whatever Claude model is current at the time; never a hardcoded id.
@@ -28,8 +29,11 @@
 ## Deep reading (separate from settlement)
 Deep reading uses marker, not Zotero `read_pdf`:
 ```
-Zotero (imported PDF) --get_attachment_path / file--> markerize --> papers_md/<name>.md
+Zotero (attachment key) --download to a stable dir--> markerize --> papers_md/<name>.md
 ```
+- Fetch the attachment **by key into a stable path** (not a temp dir — `papers_md/` must stay reproducible from it). Web API: pyzotero `zot.dump(attachment_key, filename, path=<dir>)`; the MCP wraps this as `client.download_attachment_file(key, dir, filename)`, which tries local → WebDAV → Web API and reports which source it used.
+- **Do not** use the `zotero_get_attachment_path` tool: it is local-mode only (a cloud attachment has no local path), and reaching for it is exactly how this flow silently becomes desktop-only.
+- Precondition: attachments are `imported_file` **and** file-synced (Zotero storage or WebDAV). `linked_file` attachments have no bytes on the server — re-import them, or that ref stays deep-read-only on the machine holding the file.
 - Zotero = cross-project identity + PDF home; `papers_md/` = project-local marker deep-read cache (high-quality text / figures).
 - Attribution (`decision_ref` / role) is judged by the main agent while reading `papers_md`, then passed into ④'s hot-list. ④ never opens PDFs.
 

@@ -137,7 +137,9 @@ At task / session completion:
 ④'s model is set by `lit_settle_model` (tiers: light / balanced / strict), **never a hardcoded model id**; the resolved model is recorded in the receipt.
 
 ### Deep reading & attribution
-"Which decision a ref supports" (`decision_ref` / role) is judged by the main agent from the project's **marker output** (`papers_md/`), **not** via Zotero `read_pdf`. The PDF source can be Zotero itself — `Zotero (imported PDF) → markerize → papers_md` — so Zotero is the identity **and** PDF home, while `papers_md/` is the project-local deep-read cache. Settlement (④) never opens PDFs.
+"Which decision a ref supports" (`decision_ref` / role) is judged by the main agent from the project's **marker output** (`papers_md/`), **not** via Zotero `read_pdf`. The PDF source can be Zotero itself — `Zotero (attachment fetch) → markerize → papers_md` — so Zotero is the identity **and** PDF home, while `papers_md/` is the project-local deep-read cache. Settlement (④) never opens PDFs.
+
+**How** the attachment is fetched is implementation, not contract (see `lit-settle.reference.md`). The contract must not name a transport-bound tool: a tool that only exists when a desktop app is running silently makes the whole flow desktop-only.
 
 ### Boundary & known residue (flag, don't patch)
 - Assumes sessions write STATE **alternately** (not high-frequency concurrent append); if concurrent settlement is ever introduced, add an event-log cut + serialized writes.
