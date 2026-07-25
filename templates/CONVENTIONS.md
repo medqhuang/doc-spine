@@ -80,8 +80,6 @@ Each sub-instance contains its own `inputs/`, `sbatch/` or run scripts, `scripts
 
 Close the report with a short **claims-at-completion** ledger — supported / still-uncertain / rejected — each entry one line: claim + number + (if uncertain) what observation would settle or overturn it. The ledger freezes with the report; live claim status stays in STATE (thesis field / event log), never here.
 
-**Route back-reference (projects with the author layer):** one line near the report header — which route / hypothesis this task tested (named in physics terms, so it can become an exploration-tree node) and the outcome: `verified / falsified / shelved / n-a (infrastructure)`. Written at completion time, while the reasoning is alive — the dossier's exploration tree and task-coverage scan (`DOSSIER_WRITING_STANDARD.md` §8–§9) consume it; a back-reference reconstructed at closeout is rationalization, not record.
-
 [Add project-specific conventions here. Examples:
 - For DFT projects: pseudo-potential conventions, k-mesh constraints, HPC partition defaults
 - For software projects: language style guide pointers, framework conventions, deployment targets

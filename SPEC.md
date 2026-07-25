@@ -68,26 +68,22 @@ There is also an implicit **type 6: pure registry** (resource inventories, asset
 
 Note: a pivot-heavy phase generates a lot of **intermediate scratch** (exploration drafts that are not yet any of the five types). That is *not* a 6th content type — it is process material whose canonical source is undecided. It gets a holding area + catalog, not a content-type slot. See §8.4.
 
-### The author layer (optional): tutorial + first-author dossier
+### The tutorial (optional)
 
-The five types keep the **project** healthy, not the **owner**. In heavily AI-driven projects they are execution artifacts — event lines, task reports, number ledgers (the analogue of commit history + lab notebook + QC tables). The reasoning that produced them lives in the agent's working context and never lands on disk. Observed failure at handover (audited across 7 real projects): the owner cannot restore mastery from the spine — reading it means reconstructing physics from engineering logs — and a tutorial alone restores *mechanism understanding* but not *authorship* (evidence custody, weakness inventory, reversal history, submission judgment).
+The five types keep the **project** healthy, not the **owner**. In heavily AI-driven projects they are execution artifacts — event lines, task reports, number ledgers (the analogue of commit history + lab notebook + QC tables). The reasoning that produced them lives in the agent's working context and never lands on disk. Observed failure at handover (audited across 7 real projects): the owner cannot restore mastery from the spine, because reading it means reconstructing the domain story from engineering logs.
 
-Projects that need a human to (re)take first-author responsibility opt into two further content types, written **once at project closeout** by a generation pipeline, then kept in sync:
+Projects that need a human to (re)take ownership of the subject matter opt into one further content type, written **once at project closeout**, then kept in sync:
 
 | Content type | Answers | Canonical location | Charter (contract) |
 |---|---|---|---|
 | **Tutorial** | "what is this project" — teaches the domain story to a zero-context reader, image-first | `docs/tutorial/` | [`templates/TUTORIAL_WRITING_STANDARD.md`](templates/TUTORIAL_WRITING_STANDARD.md) (zh) |
-| **First-author dossier** | "can I sign this" — story map + route history (the search story), per-claim evidence grades + retraction conditions + inline hands-on anchors, exhaustive weakness table, machine reconciliation (incl. task-coverage scan), generative takeover check with a tiered submission gate | `docs/FIRST_AUTHOR_DOSSIER.md` (per paper) | [`templates/DOSSIER_WRITING_STANDARD.md`](templates/DOSSIER_WRITING_STANDARD.md) (zh) |
 
-Architectural fit — three clauses keep the layer entropy-safe:
+Architectural fit — two clauses keep it entropy-safe:
 
-1. **Downstream views that own the narrative, never the facts.** Neither document produces a number; every figure/value is a one-hop pointer into the ledger/reports. Single Source holds: facts stay owned upstream, the layer owns only their prose reconstruction (which no upstream file owns).
-2. **Status snapshots are derived views with a freshness contract.** The dossier's status page mirrors STATE facts the way STATE's task graph mirrors the event log — overwritten, dated (`last_synced`), never authoritative. A dossier whose `last_synced` predates the latest claim-affecting event is **stale-by-definition and worse than absent** (it states old conclusions in an authoritative voice).
-3. **Claim-affecting reversals extend the §6 update set.** A `decision_reversal` that touches a claim must sync tutorial + dossier **in the same pass** — the charters make this obligation explicit. Projects with the author layer accept a larger (still bounded, still explicit) locations-per-event count for this one event class.
+1. **A downstream view that owns the narrative, never the facts.** The tutorial produces no number; every figure/value is a one-hop pointer into the ledger/reports. Single Source holds: facts stay owned upstream, the tutorial owns only their prose reconstruction (which no upstream file owns).
+2. **Claim-affecting reversals extend the §6 update set.** A `decision_reversal` that touches a claim must sync the tutorial **in the same pass** — the charter makes this obligation explicit. Projects with a tutorial accept a larger (still bounded, still explicit) locations-per-event count for this one event class.
 
-Generation is regulated by the charters, including an independence red line: the weakness inventory and honesty audit must not come solely from the lineage that executed the project — the executing lineage is structurally blind to its own soft spots.
-
-> *This subsection registers two optional content types for the handover/authorship need (evidence: a 7-project audit, 2026-07). Their full regulation lives in the two charter files; do not extend it here. The charters are currently Chinese-language — translations welcome.*
+> *This subsection registers one optional content type for the handover need (evidence: a 7-project audit, 2026-07). Its full regulation lives in the charter file; do not extend it here. The charter is currently Chinese-language — translations welcome.*
 
 ---
 
@@ -233,7 +229,6 @@ Where a claim lives — one role per home:
 | `thesis` field (§7.1, §8.4) | the currently adopted understanding (the one load-bearing claim) |
 | event log line | the change that moved it — evidence + uncertainty, at the moment it happened |
 | report claims ledger (templates/CONVENTIONS §6) | the claim summary frozen at task completion |
-| author-layer dossier (§3) | the full publication-grade argumentation |
 
 > *Anything richer per-claim inside STATE (status grades, evidence lists, falsification registries) stays prohibited: evidence is canonical in `reports/` — a claims ledger inside STATE would be a second evidence home, §8.1's drift in a new coat.*
 
@@ -290,8 +285,6 @@ Not hypothetical. Each has occurred and triggered a structural fix.
 
 > *Why this is not a 6th content type (cf. §3): a content type is "content with a canonical single source." Intermediate scratch is by definition content whose single source is not yet decided — promoting it IS deciding. Minting it as a content type would license exactly the SOT-squatting this fix removes.*
 
----
-
 ## 9. Anti-bloat patterns (preserve evolution space)
 
 Micro-patterns that prevent the architecture from rigidifying as it evolves.
@@ -336,7 +329,7 @@ Low effort, high value:
 - **Locations-per-event** — when an event occurs (job complete, reversal, status change), count files you update. Healthy ≤3; drift signal ≥4.
 - **Frontmatter drift** — parse YAML frontmatter periodically; verify field values match the prose body. Frontmatter says `active_task: T2` but body still narrates T1 = silent drift.
 - **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4), scan its INDEX `active` list: any draft cited as an authority by STATE / ROADMAP / a report, or with an empty `promotes-to`, is an unpromoted authority — promote it and leave a pointer. Directory size itself is *not* a drift signal; a retained authority is.
-- **Stale author layer** — if the project has tutorial/dossier (§3 author layer), compare the dossier's `last_synced` against the newest claim-affecting event in `STATE.md`. Older = stale-by-definition; a reversal absorbed by the spine but not by the author layer is exactly the drift this layer must never carry.
+- **Stale tutorial** — if the project has a tutorial (§3), compare its `last_synced` against the newest claim-affecting event in `STATE.md`. Older = stale-by-definition; a reversal absorbed by the spine but not by the tutorial is exactly the drift this layer must never carry.
 
 ---
 
