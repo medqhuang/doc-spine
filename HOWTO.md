@@ -45,9 +45,10 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
    YYYY-MM-DD · task:T<N> milestone · <one-line summary + key data + JID>. ref: reports/T<N>_report.md
    ```
 3. **Create `reports/T<N>_report.md`** with the full data + interpretation.
-4. **Stage decision for non-doc files**: if the project's `Commit policy` excludes certain file types from AI's auto-stage (e.g., compute inputs, generated artifacts), list any modified files of that kind under the completed task's path and ask the user whether to include them in this commit. User confirmation lifts the exclusion for this commit only.
-5. **`git commit`** (one logical change, message says **why**).
-6. **Do NOT** add an "update" paragraph to `TASKS.md` or the old report header.
+4. **(research / writing) Literature settle**: from the events after the last `lit·settled` + the reports they `ref:`, grep out new DOI/arXiv → settle subagent files them in Zotero → append a `lit·settled` event. Skip if none. See [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
+5. **Stage decision for non-doc files**: if the project's `Commit policy` excludes certain file types from AI's auto-stage (e.g., compute inputs, generated artifacts), list any modified files of that kind under the completed task's path and ask the user whether to include them in this commit. User confirmation lifts the exclusion for this commit only.
+6. **`git commit`** (one logical change, message says **why**).
+7. **Do NOT** add an "update" paragraph to `TASKS.md` or the old report header.
 
 ### Scenario C · Decision reversal (a prior choice is overturned)
 

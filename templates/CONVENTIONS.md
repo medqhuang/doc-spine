@@ -130,7 +130,7 @@ At task / session completion:
 
 **Before submission**, run step 1 in bootstrap mode by hand (scan every citation-scope doc, ignore the cursor). Whatever it surfaces unfiled is what the incremental runs missed. No extra mechanism — the cold-start path, invoked deliberately.
 
-**Which decision a ref supports is not recorded here.** It is already one hop away — `STATE` event → its `ref:` report → the citations in it — and re-recording it would be a second, recall-derived copy of a relation the spine already owns. Whether a cited *conclusion* has been checked is a claim: it belongs in the report's claims ledger (§6) as a `still-uncertain` entry with what would settle it — not in this event, and not in the backlog, which is the mechanical list of refs that failed to file.
+**Which decision a ref supports is not recorded here.** It is already one hop away — `STATE` event → its `ref:` report → the citations in it — and re-recording it would be a second, recall-derived copy of a relation the spine already owns. Whether a cited *conclusion* has been checked is a claim: it belongs in the report's claims-at-completion ledger (§6) as a `still-uncertain` entry with what would settle it — not in this event, and not in the backlog, which is the mechanical list of refs that failed to file.
 
 ### Model
 ④'s model is set by `lit_settle_model` (tiers: light / balanced / strict), **never a hardcoded model id**; the resolved model is recorded in the receipt.

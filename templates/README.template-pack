@@ -23,5 +23,10 @@ Placeholders to fill in:
 Optional next:
   - Add `.aiignore` to any frozen / read-only instance directory
   - Add a domain-specific entry to CONVENTIONS.md §6
+  - Research / writing projects: cp templates/lit-settle.reference.md → <PROJECT>/docs/
+    (reference implementation of the literature settle step; see CONVENTIONS.md §10)
+  - At project closeout, if a human must retake ownership of the subject matter:
+    cp templates/TUTORIAL_WRITING_STANDARD.md → <PROJECT>/docs/ (charter for the
+    optional tutorial content type; see SPEC.md §3). Not needed at bootstrap.
   - When a pivot-heavy phase begins: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
     (catalog for non-canonical exploration drafts; see SPEC §8.4). Not needed at bootstrap.
