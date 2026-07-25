@@ -36,7 +36,7 @@
 | Strategy / red lines / locked decisions | `docs/ROADMAP.md` |
 | Cross-project knowledge | user-level memory (e.g., `~/.claude/projects/<path>/memory/`) |
 
-**No 6th type by default.** Add only on real signal (e.g., a publication-writing phase that needs a canonical numbers registry). A literature library is the common instance of such a signal — see §10 (identity single-sourced in Zotero, repo holds only DOI/arXiv pointers).
+**No 6th type by default.** Add only on real signal (e.g., a publication-writing phase that needs a canonical numbers registry). Literature is *not* such a signal: identity is single-sourced in Zotero and the repo keeps only DOI/arXiv pointers, so filing citations is a step in task completion, not a content type — see §10.
 
 Intermediate scratch (pivot-phase exploration drafts) is *not* a content type — it gets a holding area `instances/<ACTIVE_INSTANCE>/scratch/` + an `INDEX.md` catalog, and must promote to one of the five. See SPEC §8.4.
 
@@ -114,34 +114,34 @@ Do not commit:
 
 ## 10. Literature & citation settlement (research / writing projects)
 
-The new sixth content type is **the project's evidence relations + settlement audit for literature** (canonical = `lit·settled` events in this instance's `STATE.md`); **literature identity itself** (metadata / DOI / PDF) is canonical in **Zotero** (external, like type-5 knowledge in memory). Each has its own single source. The repo holds **only DOI/arXiv pointers** — no copied bibliography, no correction paragraphs. Assumes Claude Code + Zotero MCP.
+**Not a content type — a step in task completion.** Literature identity (metadata / DOI / PDF) is canonical in **Zotero** (external, like type-5 knowledge in memory). The repo holds **only DOI/arXiv pointers** — no copied bibliography. What lands in `STATE.md` is one ordinary event recording that the new citations were filed, which doubles as the cursor for the next run. Assumes Claude Code + Zotero MCP.
 
 ### Citing (pull, not push)
 Cite in prose / reports in natural form (DOI / arXiv / author-year); **do not hand-tag, do not keep a ledger**. The settle step pulls citations from existing records at boundaries.
 
 ### Settlement (boundary-triggered; the event log is its own cursor)
 At task / session completion:
-1. **③ main agent (no Zotero)** — take events appended **after the last `lit·settled` event** + the reports they `ref:`; parse DOI/arXiv per doc (grep = coverage floor), recall fills semantics; hand ④ a hot-list (surface form · id · location · `decision_ref`). Skip if none. Cold start (no `lit` event yet) = bootstrap: scan all citation-scope docs.
-2. **④ settle subagent (isolated, with Zotero, model = profile)** — work-merge (arXiv↔DOI only when metadata clearly links; ambiguous → backlog) → dedup-search → add (accept only DOI/arXiv; author-year / no-id / failure → backlog with reason) → return a machine-readable receipt. **Settlement never opens PDFs**; dirty context (MCP schemas / query round-trips) stays inside the subagent. Attribution/role comes from ③'s hot-list — see *Deep reading* below.
+1. **③ main agent (no Zotero)** — take events appended **after the last `lit·settled` event** + the reports they `ref:`; parse DOI/arXiv per doc (grep = coverage floor); hand ④ a hot-list (surface form · id · location). Skip if none. Cold start (no `lit` event yet) = bootstrap: scan all citation-scope docs.
+2. **④ settle subagent (isolated, with Zotero, model = profile)** — work-merge (arXiv↔DOI only when metadata clearly links; ambiguous → backlog) → dedup-search → add (accept only DOI/arXiv; author-year / no-id / failure → backlog with reason) → return a machine-readable receipt. Identity operations only: **no PDFs, no judgement about what a ref supports.** Dirty context (MCP schemas / query round-trips) stays inside the subagent.
 3. **Main agent writes a settlement event** (append-only) to STATE:
-   `YYYY-MM-DD · lit · settled · <DOI→item_key>(role, decision_ref)… · resolved_model · backlog:[locatable items]`
-   This one line is audit (replayable) + project role + next cursor.
-4. **Human** — triage backlog / uncertain items + spot-check newly `load-bearing` ones.
+   `YYYY-MM-DD · lit · settled · <DOI→item_key>… · resolved_model · backlog:[locatable items]`
+   This one line is audit (replayable) + next cursor.
+4. **Human** — triage backlog.
 
-### Role & search
-`load-bearing` / `background` = "this ref supports `decision_ref` X as of some settlement" — a **project-dimension** relation, recorded in the settlement event, **never a global Zotero tag** (would clash across projects). Semantic search defaults to the whole library; `load-bearing` is an explicit filter.
+**Before submission**, run step 1 in bootstrap mode by hand (scan every citation-scope doc, ignore the cursor). Whatever it surfaces unfiled is what the incremental runs missed. No extra mechanism — the cold-start path, invoked deliberately.
+
+**Which decision a ref supports is not recorded here.** It is already one hop away — `STATE` event → its `ref:` report → the citations in it — and re-recording it would be a second, recall-derived copy of a relation the spine already owns. Whether a cited *conclusion* has been checked is a claim: it belongs in the report's claims ledger (§6) as a `still-uncertain` entry with what would settle it — not in this event, and not in the backlog, which is the mechanical list of refs that failed to file.
 
 ### Model
 ④'s model is set by `lit_settle_model` (tiers: light / balanced / strict), **never a hardcoded model id**; the resolved model is recorded in the receipt.
 
-### Deep reading & attribution
-"Which decision a ref supports" (`decision_ref` / role) is judged by the main agent from the project's **marker output** (`papers_md/`), **not** via Zotero `read_pdf`. The PDF source can be Zotero itself — `Zotero (attachment fetch) → markerize → papers_md` — so Zotero is the identity **and** PDF home, while `papers_md/` is the project-local deep-read cache. Settlement (④) never opens PDFs.
+### Deep reading
+Deep reading uses the project's **marker output** (`papers_md/`), **not** Zotero `read_pdf`. The PDF source can be Zotero itself — `Zotero (attachment fetch) → markerize → papers_md` — so Zotero is the identity **and** PDF home, while `papers_md/` is the project-local deep-read cache. Settlement (④) never opens PDFs.
 
 **How** the attachment is fetched is implementation, not contract (see `lit-settle.reference.md`). The contract must not name a transport-bound tool: a tool that only exists when a desktop app is running silently makes the whole flow desktop-only.
 
 ### Boundary & known residue (flag, don't patch)
+- Semantic search over the library is a convenience, **not part of settlement** (which dedups by exact normalized id). A stale or missing index costs discovery speed, never settlement correctness — do not attach a maintenance ritual for it to the boundary step.
 - Assumes sessions write STATE **alternately** (not high-frequency concurrent append); if concurrent settlement is ever introduced, add an event-log cut + serialized writes.
-- Residue: concurrent miss (negligible under alternate writes; load-bearing self-heals + pre-submission full reconcile catches it), cross-project context drift, author-attribution drift.
-- confidence / full receipt schema / auto-retry backlog / mandatory full spot-check, etc. — add only when a real failure occurs (SPEC §9.3).
-
-> *This section is the regulation for the "literature" content type (permitted by SPEC §3). Rules for other content types stay in their existing locations; do not extend them here.*
+- Residue: concurrent miss (caught by the pre-submission bootstrap run), cross-project context drift.
+- confidence / full receipt schema / auto-retry backlog, etc. — add only when a real failure occurs (SPEC §9.3).

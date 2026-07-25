@@ -33,7 +33,7 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 > Format: `YYYY-MM-DD · <scope> · <event type> · summary + key data (value ± uncertainty; JID/refs) + consequence / what remains open`
 > Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` (extend as needed)
 > Event type examples: `milestone` / `action` / `discovery` / `decision_reversal` / `structural` / `settled`
-> Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>(role, decision_ref) · resolved_model · backlog:[…]`
+> Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>… · resolved_model · backlog:[…]`
 
 - **YYYY-MM-DD** · project · structural · initial bootstrap from doc-spine template
 

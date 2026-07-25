@@ -20,7 +20,7 @@ This repo specifies an architecture that prevents that accumulation. It is **not
 
 Three coupled mechanisms — **Single Source**, **One-Way** ownership, **Append-Only** event log — applied to **5 canonical content types** (state, task spec, completion report, strategy, cross-project knowledge). Each type lives in exactly one file; everything else points to it.
 
-Research / writing projects can opt into a **6th (literature)** type — bibliographic identity in Zotero, project-side evidence & settlement audit in STATE; see [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
+Research / writing projects can add a **literature settle step** at task completion — new citations filed into Zotero (identity lives there, the repo keeps only DOI/arXiv pointers), one STATE event as audit and cursor. A step, not a sixth type; see [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
 
 Heavily AI-driven projects can further opt into a **tutorial** — one downstream type written at closeout that gives the human owner back what execution artifacts can't: the domain story, image-first, readable by a zero-context reader. See [SPEC.md §3](SPEC.md) and the charter in [`templates/`](templates/).
 
