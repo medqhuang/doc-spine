@@ -82,6 +82,19 @@ This is **Scenario B**. The commit is the natural end of that flow.
 3. No task-graph change; no report.
 4. Commit per project policy. Empty-result sessions still get one event line — the audit trail must explain the gap.
 
+#### Before the commit lands (all three sub-cases)
+
+Three drift checks, scoped to **this session's diff** — not a repo-wide sweep (SPEC §10):
+
+1. **How many files did this one event change?** `git diff --stat`. ≥4 → say which of them is a second home for something, and fix that now.
+2. **Is status prose being added outside `STATE.md`?**
+   ```bash
+   git diff -U0 | grep -nE '^\+.*(in-progress|pending|SUPERSEDED|当前状态|[0-9]{4}-[0-9]{2}-[0-9]{2} update)'
+   ```
+3. **If the diff touched STATE frontmatter** — do the new values agree with the task graph and the newest event line?
+
+The remaining SPEC §10 checks examine accumulated state, not this change; they stay on-demand.
+
 **Commit policy**: doc-spine itself does not auto-commit. Whether the commit-trigger signal also runs `git commit` is a project decision recorded in `CLAUDE.md` (see the template's `Commit policy:` line).
 
 ---

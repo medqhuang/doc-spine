@@ -320,14 +320,23 @@ If you find yourself wanting to add a pattern preemptively, write it down in a p
 
 ---
 
-## 10. Drift detection (periodic checks)
+## 10. Drift detection
 
-Low effort, high value:
+Split by **what a check examines**, which decides when it can run. A check with no trigger is a check nobody runs.
+
+### At the commit boundary — this session's diff (HOWTO Scenario D)
+
+These cost nothing extra: the diff is already in front of whoever is committing.
+
+- **Locations-per-event** — count the files this one event changed. Healthy ≤3; at ≥4, name which of them is a second home for something, and fix that before committing.
+- **Status prose leak** — grep the *diff*, not the tree, for `in-progress` / `pending` / `SUPERSEDED` / `当前状态` / `YYYY-MM-DD update` being **added** outside `STATE.md` / `STATE.yaml`. Cheapest to remove before it lands.
+- **Frontmatter drift** — only if this diff touched STATE frontmatter: do the new values agree with the task graph and the newest event? Frontmatter says `active_task: T2` while the body still narrates T1 = silent drift.
+
+### On demand — accumulated state, not this change
+
+No cadence prescribed (a scheduled sweep is maintenance bloat, §9.3). Run when something reads wrong, or when picking a project back up after a gap.
 
 - **Inter-section redundancy in entry files** — read `CLAUDE.md` / `README.md` top to bottom; ask "does §B say anything §A didn't?" If §B is a reframing of §A, merge or remove.
-- **Status prose leak** — grep for `in-progress` / `pending` / `2026-XX-XX update` / `SUPERSEDED` / `当前状态` across all files. Any hit outside `STATE.md` / `STATE.yaml` is a leak.
-- **Locations-per-event** — when an event occurs (job complete, reversal, status change), count files you update. Healthy ≤3; drift signal ≥4.
-- **Frontmatter drift** — parse YAML frontmatter periodically; verify field values match the prose body. Frontmatter says `active_task: T2` but body still narrates T1 = silent drift.
 - **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4), scan its INDEX `active` list: any draft cited as an authority by STATE / ROADMAP / a report, or with an empty `promotes-to`, is an unpromoted authority — promote it and leave a pointer. Directory size itself is *not* a drift signal; a retained authority is.
 - **Stale tutorial** — if the project has a tutorial (§3), compare its `last_synced` against the newest claim-affecting event in `STATE.md`. Older = stale-by-definition; a reversal absorbed by the spine but not by the tutorial is exactly the drift this layer must never carry.
 
