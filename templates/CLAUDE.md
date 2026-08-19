@@ -14,9 +14,10 @@ Auto-loaded. Read this + `instances/<ACTIVE_INSTANCE>/STATE.md` frontmatter (sta
 
 ## STATE writing discipline
 
-- Event log is **append-only, one line per event**: `YYYY-MM-DD · scope · event type · summary + key data (JID) + consequence. ref: <pointer>`
-- Scope examples: `task:T<N> milestone/action/discovery` / `decision_reversal` / `structural` (extend as needed)
+- Event log is **append-only, one line per event**: `YYYY-MM-DD · scope · event type · summary — key data (JID) + consequence. ref: <pointer>`
+- Scope examples: `task:T<N> milestone/action/discovery` / `decision` / `decision_reversal` / `structural` (extend as needed)
 - Scientific findings enter the log as **claims, not facts**: key data carries its uncertainty; consequence notes what remains open / would overturn it. Still one line
+- A claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal`) opens with **one plain-language clause carrying an explicit subject** — readable by someone who was not in this session; handles / values / refs go after the ` — `. Other event types are exempt. Compression drops the subject first, and the next write then attaches the claim to the wrong object (SPEC §7.3)
 - Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) overwrite in place — never prose
 - History corrections go through **`git revert`**, never a "correction" paragraph in the document
 

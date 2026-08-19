@@ -217,10 +217,23 @@ Event types (also open enum):
 - `milestone` — task or stage completed
 - `action` — significant action taken (job submitted, file moved)
 - `discovery` — new finding that affects downstream
+- `decision` — a choice locked (a method over another, a branch at a fork)
 - `decision_reversal` — prior decision overturned
 - `structural` — reorganization / file move
 
-**Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision_reversal`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
+**Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
+
+**The summary segment carries a subject.** In a claim-bearing event, the segment before the first ` — ` is one plain-language clause with an **explicit subject** — which quantity, which decision, which gate; what changed; what it now means — readable by someone who was not in the session that wrote it. Handles (gate names, task ids, coined abbreviations), values, and refs follow after the dash.
+
+```
+- YYYY-MM-DD · task:T<N> · milestone · <plain clause, subject explicit> — <handles · value ± uncertainty · JID/refs · what remains open>
+```
+
+This is a constraint on the existing summary segment, not a new field: same one line, same single location, append-only intact.
+
+**Why a subject and not a length cap.** A length cap buys nothing — the writer meets it by compressing harder. The subject is what compression drops *first*: it is the token most recoverable from live context and least recoverable from the file. A subject-less summary reads correctly only against the context that produced it; the next write resolves the referent against a different context and attaches the claim to the wrong object. Observed (2026-07, one project): two distinct quantities were compressed into the same subject-less phrase, mis-attached by a write one day later, and recovered only by a dedicated correction event. **The reader this protects is the next writer, not the human** — a human can interrogate the running session; a cold write cannot.
+
+Non-claim-bearing events (`action`, `structural`, and their kin) are exempt. They record what was done, where a mis-resolved referent costs a re-read rather than a wrong claim.
 
 Where a claim lives — one role per home:
 
@@ -331,6 +344,7 @@ These cost nothing extra: the diff is already in front of whoever is committing.
 - **Locations-per-event** — count the files this one event changed. Healthy ≤3; at ≥4, name which of them is a second home for something, and fix that before committing.
 - **Status prose leak** — grep the *diff*, not the tree, for `in-progress` / `pending` / `SUPERSEDED` / `当前状态` / `YYYY-MM-DD update` being **added** outside `STATE.md` / `STATE.yaml`. Cheapest to remove before it lands.
 - **Frontmatter drift** — only if this diff touched STATE frontmatter: do the new values agree with the task graph and the newest event? Frontmatter says `active_task: T2` while the body still narrates T1 = silent drift.
+- **Subject-less claim** — for each claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal`) this diff appends, read only the segment before its first ` — `, out of context. If it does not name what the claim is about, rewrite before committing: the next writer will resolve the referent against a context that no longer exists (§7.3).
 
 ### On demand — accumulated state, not this change
 
