@@ -24,7 +24,7 @@ widget-research/
 | Live state / decisions / reversals | `instances/widget-v1/STATE.md` |
 | Task spec | `instances/widget-v1/docs/TASKS.md` |
 | Completion report + data trace | `instances/widget-v1/reports/T<N>_report.md` |
-| Strategy / red lines / locked decisions | `docs/ROADMAP.md` |
+| Strategy / stages / red lines | `docs/ROADMAP.md` |
 
 ## 3. Demo policy
 

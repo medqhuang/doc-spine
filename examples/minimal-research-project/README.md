@@ -21,7 +21,7 @@ This example demonstrates:
 - A `STATE.md` with YAML frontmatter, a task graph, an append-only event log, and a sub-instance roster
 - A `TASKS.md` with pure task spec and no live status prose
 - A completed task report with data trace and downstream interface
-- A `ROADMAP.md` with locked decisions and a red line
+- A `ROADMAP.md` holding only the founding frame — stages and a red line
 
 Fork this example, replace "widget" with your domain, and you have a working starter.
 

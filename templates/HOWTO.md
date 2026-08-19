@@ -9,7 +9,7 @@ Local quick reference for using the doc-spine layout in this project.
 | Status change / decision / reversal / event | `instances/<ACTIVE_INSTANCE>/STATE.md` |
 | Task spec | `instances/<ACTIVE_INSTANCE>/docs/TASKS.md` |
 | Completion report + data trace | `instances/<ACTIVE_INSTANCE>/reports/T<N>_report.md` |
-| Strategy / red lines / locked decisions | `docs/ROADMAP.md` |
+| Strategy / stages + forks / red lines | `docs/ROADMAP.md` |
 | Cross-project knowledge | user-level memory |
 
 ## Session start

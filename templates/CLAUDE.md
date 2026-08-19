@@ -9,7 +9,7 @@ Auto-loaded. Read this + `instances/<ACTIVE_INSTANCE>/STATE.md` frontmatter (sta
 | **State / decisions / events / reversals** | `instances/<ACTIVE_INSTANCE>/STATE.md` (append one line, never a paragraph) | Every session start |
 | **Task spec** (input/steps/output/criteria/risks/locked decisions) | `instances/<ACTIVE_INSTANCE>/docs/TASKS.md` §relevant task | Current task start |
 | **Completion report + data trace** | `instances/<ACTIVE_INSTANCE>/reports/T<N>_report.md` (write once, then read-only) | Task-relevant grep |
-| **Strategy / red lines / locked decisions / DAG** | `docs/ROADMAP.md` | Decision points |
+| **Strategy / stages + forks / red lines** (founding frame, near write-once) | `docs/ROADMAP.md` | Decision points |
 | **Cross-project knowledge** (tooling quirks, env gotchas) | `~/.claude/projects/<PROJECT_PATH>/memory/` | On demand |
 
 ## STATE writing discipline

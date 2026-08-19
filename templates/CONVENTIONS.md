@@ -11,7 +11,7 @@
 ├── README.md             human entry
 ├── HOWTO.md              (optional) architecture usage guide
 ├── docs/                 project-level
-│   ├── ROADMAP.md        strategy / stages / red lines / DAG / locked decisions
+│   ├── ROADMAP.md        strategy / stages + forks / red lines (founding frame, near write-once)
 │   ├── CONVENTIONS.md    this file
 │   ├── <REGISTRY>.yaml   (optional) pure registry data
 │   └── _archive/         historical snapshots (do not delete; do not edit)
@@ -33,7 +33,7 @@
 | State / decisions / events / reversals | `instances/<ACTIVE_INSTANCE>/STATE.md` (append-only event log) |
 | Task spec | `instances/<ACTIVE_INSTANCE>/docs/TASKS.md` |
 | Completion reports + data trace | `instances/<ACTIVE_INSTANCE>/reports/T<N>_report.md` |
-| Strategy / red lines / locked decisions | `docs/ROADMAP.md` |
+| Strategy / stages + forks / red lines | `docs/ROADMAP.md` |
 | Cross-project knowledge | user-level memory (e.g., `~/.claude/projects/<path>/memory/`) |
 
 **No 6th type by default.** Add only on real signal (e.g., a publication-writing phase that needs a canonical numbers registry). Literature is *not* such a signal: identity is single-sourced in Zotero and the repo keeps only DOI/arXiv pointers, so filing citations is a step in task completion, not a content type — see §10.

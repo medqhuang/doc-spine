@@ -17,7 +17,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 | Status change / decision / reversal / task completion / event | `STATE.md` (append **one line**, never a paragraph) |
 | Task spec (input/steps/output/criteria/risks/locked decisions) | `docs/TASKS.md` §the relevant task |
 | Completion report + data trace | `reports/T<N>_report.md` (write once, read-only after) |
-| Strategy / red lines / locked decisions / DAG | `docs/ROADMAP.md` |
+| Strategy / stages + forks / red lines (founding frame, near write-once) | `docs/ROADMAP.md` |
 | Tooling quirks / cross-project knowledge | `~/.claude/projects/.../memory/` or equivalent |
 | Pure registry (resource paths, asset inventory) | `docs/<name>.yaml` |
 | Intermediate exploration draft (pivot-phase: derivation, audit, reframe proposal, probe plan) | `instances/<active>/scratch/` + a row in `scratch/INDEX.md` — **non-canonical, must promote** (SPEC §8.4) |
@@ -56,7 +56,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
    ```
    YYYY-MM-DD · decision_reversal · <X → Y>. reason: <evidence>. affected: <subinstances/tasks>. ref: <previous event id or doc>
    ```
-2. **If strategy changed** → update `docs/ROADMAP.md §locked-decisions` (rare).
+2. **If the founding frame itself changed** (a red line, a stage boundary, the central bet) → edit `docs/ROADMAP.md` in place (rare). Ordinary decisions and their reversals need nothing beyond the event line — the log *is* the standing set.
 3. **If spec changed** → edit the relevant `docs/TASKS.md §task` field in place.
 4. **Do NOT** modify `reports/` (data trace is frozen).
 5. **Do NOT** add a `SUPERSEDED` banner anywhere (the event log is the audit trail).
@@ -117,7 +117,7 @@ The remaining SPEC §10 checks examine accumulated state, not this change; they 
 [ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, etc.)
 [ ] CLAUDE.md          <40 lines — 5 content types table + Hard rules + Commit policy
 [ ] README.md          ≤30 lines — top-level layout + entry table
-[ ] docs/ROADMAP.md    strategy + red lines + DAG skeleton
+[ ] docs/ROADMAP.md    strategy + stages/forks + red lines (founding frame)
 [ ] docs/CONVENTIONS.md  naming + git workflow + frozen boundaries
 [ ] instances/<active>/STATE.md         YAML frontmatter + task graph + event-log scaffold
 [ ] instances/<active>/docs/TASKS.md    T1-TN spec only (no status)

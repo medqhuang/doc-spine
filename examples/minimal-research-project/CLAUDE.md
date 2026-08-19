@@ -9,7 +9,7 @@ Auto-loaded. Read this + `instances/widget-v1/STATE.md` frontmatter (start with 
 | **State / decisions / events / reversals** | `instances/widget-v1/STATE.md` (append one line, never a paragraph) | Every session start |
 | **Task spec** | `instances/widget-v1/docs/TASKS.md` §relevant task | Current task start |
 | **Completion report + data trace** | `instances/widget-v1/reports/T<N>_report.md` | Task-relevant grep |
-| **Strategy / red lines / locked decisions** | `docs/ROADMAP.md` | Decision points |
+| **Strategy / stages / red lines** (founding frame) | `docs/ROADMAP.md` | Decision points |
 | **Cross-project knowledge** | user-level memory | On demand |
 
 ## STATE writing discipline

@@ -9,7 +9,7 @@
 
 | doc | sub-type | promotes-to / feeds-into |
 |---|---|---|
-| `<name>.md` | <derivation-note / audit / synthesis / analysis / reframe-proposal / probe-plan> | <target STATE field / ROADMAP §decision / report — or "TBD"> |
+| `<name>.md` | <derivation-note / audit / synthesis / analysis / reframe-proposal / probe-plan> | <target STATE field or `decision` event / ROADMAP §red lines / report — or "TBD"> |
 
 ## SUPERSEDED — absorbed or abandoned (kept in place for audit links)
 

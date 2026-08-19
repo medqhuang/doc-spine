@@ -1,20 +1,7 @@
 # <PROJECT_NAME> · ROADMAP
 
-> Project-level strategy + stages + locked decisions + red lines + DAG. Cross-instance methodological commitments live here.
-> Instance-level task detail → `instances/<ACTIVE_INSTANCE>/docs/TASKS.md`. Live state → `instances/<ACTIVE_INSTANCE>/STATE.md`.
-
-## Agent read path (progressive disclosure)
-
-| Layer | Document | When to read |
-|---|---|---|
-| **L0** | System-injected (project root `CLAUDE.md` + global user instructions) | Auto-loaded |
-| **L1a** | `instances/<ACTIVE_INSTANCE>/STATE.md` (state + event log) | Every session start |
-| **L1b** | This file (project strategy + red lines + DAG) | Each task start |
-| **L2** | Instance `docs/TASKS.md` §relevant task | Current task start |
-| **L3** | Instance `reports/T<N>_report.md` / sub-instance inputs/sbatch | When task references it |
-| **L4** | `docs/CONVENTIONS.md` / registries / `_legacy/` / `_archive/` | Rarely; on-demand only |
-
-**Throttling**: do not read L4. Do not read sub-instance docs that the current task does not hit. **STATE.md is the single status authority** — never look for current status in TASKS / reports.
+> Project strategy — the founding frame: what this project is, the bet it makes, its stages and forks, its red lines, and what it knowingly defers. Written at bootstrap; amended only by an explicit decision (append a `decision` event to STATE, then edit this file in place). Read at decision points, not every session.
+> What **accumulates** while the project runs — task dependencies, the decision taken at each fork — lives in `instances/<ACTIVE_INSTANCE>/STATE.md` (task graph `blocked-by` column; `decision` events), never here. Instance-level task detail → `instances/<ACTIVE_INSTANCE>/docs/TASKS.md`.
 
 ---
 
@@ -28,11 +15,13 @@ Main object chain (if applicable):
 <upstream input> → <processing step> → <downstream output>
 ```
 
+Central hypothesis / method bet (if the project has one): <the structural claim this project exists to test — its *shape*, not its current status; the live claim with confidence and lineage is STATE's `thesis` field>
+
 ---
 
 ## Strategy / stages
 
-> A **stage** is the coarse, decision-driven grouping of one or more **tasks** (`TASKS.md` = the fine, execution-driven unit). **You only ever advance tasks** (HOWTO Scenario B); the active stage is simply the one containing `active_task`. You cross into the next stage when its entry conditions (below) hold — recorded as a `milestone` event in STATE, never a separately-tracked status field.
+> A **stage** is the coarse, decision-driven grouping of one or more **tasks** (`TASKS.md` = the fine, execution-driven unit). **You only ever advance tasks** (HOWTO Scenario B); the active stage is simply the one containing `active_task`. You cross into the next stage when its entry conditions (below) hold — recorded as a `milestone` event in STATE, never a separately-tracked status field. Which branch a fork took is likewise a STATE `decision` event; this file only **defines** the fork.
 
 ```
 Stage 1   : <description>
@@ -56,31 +45,6 @@ If any fails → fall back to Stage 3b.
 
 ---
 
-## Locked decisions
-
-> Decisions that are not up for reconsideration unless red-lined. Reversals append to STATE event log; this file records the current locked state.
-
-### <Decision category 1>
-
-- **Choice**: <what was chosen>
-- **Date**: <when locked>
-- **Rationale**: <why; can be terse, with pointer to source>
-
-### <Decision category 2>
-
-(same structure)
-
----
-
-## Open problems (acknowledged, deferred)
-
-| Problem | Handling |
-|---|---|
-| <problem 1> | <how it will be handled; which task addresses it> |
-| <problem 2> | <handling> |
-
----
-
 ## Red lines
 
 Conditions that, if violated, force re-evaluation:
@@ -91,25 +55,15 @@ Conditions that, if violated, force re-evaluation:
 
 ---
 
-## Data / dependency DAG (if applicable)
+## Open problems (acknowledged at bootstrap, deferred)
 
-```
-<sketch of upstream → downstream dependencies>
-```
-
----
-
-## Project history
-
-Milestones / decision reversals / state changes → [`instances/<ACTIVE_INSTANCE>/STATE.md`](../instances/<ACTIVE_INSTANCE>/STATE.md) §event log (append-only) + `git log`.
-
----
-
-## Entry table
-
-| Looking for | Go to |
+| Problem | Handling |
 |---|---|
-| **Live state / active task / in-flight jobs** | [`instances/<ACTIVE_INSTANCE>/STATE.md`](../instances/<ACTIVE_INSTANCE>/STATE.md) ★ |
-| Task spec | [`instances/<ACTIVE_INSTANCE>/docs/TASKS.md`](../instances/<ACTIVE_INSTANCE>/docs/TASKS.md) |
-| Naming / git workflow / 5 content types map | [`CONVENTIONS.md`](CONVENTIONS.md) |
-| Active instance overview + historical doc topic nav | [`../instances/<ACTIVE_INSTANCE>/README.md`](../instances/<ACTIVE_INSTANCE>/README.md) |
+| <problem 1> | <how it will be handled; which task addresses it> |
+| <problem 2> | <handling> |
+
+> *A problem deferred later, mid-project, is a decision: a STATE `decision` event. This table is not extended.*
+
+---
+
+> *Nothing in this file changes because a task advanced. If you are editing it for any reason other than amending the frame itself (a red line, a stage boundary, the central bet), the content belongs in STATE — see SPEC §8.5.*

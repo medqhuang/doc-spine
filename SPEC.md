@@ -59,7 +59,7 @@ This makes the audit trail trustworthy and trivially searchable.
 | 1 | **State + events** (status, decisions, reversals, milestones) | High (every event) | AI continuous update; human reviews at boundaries | `<instance>/STATE.md` | MD + YAML frontmatter |
 | 2 | **Task spec** (input, steps, output, criteria, risks, locked decisions) | Medium (when spec actually changes) | AI + human co-read | `<instance>/docs/TASKS.md` | MD |
 | 3 | **Completion report + data trace** (results, physics interpretation, reproducibility info) | Medium (write once at task completion, then read-only) | Human-primary, AI references | `<instance>/reports/T<N>_report.md` | MD |
-| 4 | **Strategy + red lines + locked decisions + DAG** | Low (decision-driven) | Human-primary; AI auto-respects | `docs/ROADMAP.md` | MD |
+| 4 | **Strategy + stages + red lines** (the project's founding frame: what it is, the bet, the forks, what must not be violated) | Near-zero (written at bootstrap; amended only by an explicit decision) | Human-primary; AI auto-respects | `docs/ROADMAP.md` | MD |
 | 5 | **Cross-project knowledge** (tooling quirks, compute env gotchas) | Low | AI across sessions | `~/.claude/projects/.../memory/` or equivalent persistent memory | MD |
 
 There is also an implicit **type 6: pure registry** (resource inventories, asset paths) — use YAML when it appears, but in a typical research project this is rare enough not to require a default location.
@@ -109,7 +109,7 @@ Architectural fit — two clauses keep it entropy-safe:
 ├── README.md                  ≤30 lines — top-level layout + entry table
 ├── HOWTO.md                   (optional) — local quick-reference for the architecture
 ├── docs/
-│   ├── ROADMAP.md             strategy / stages / red lines / DAG / locked decisions
+│   ├── ROADMAP.md             strategy / stages + forks / red lines — founding frame, near write-once
 │   ├── CONVENTIONS.md         naming / git workflow / frozen boundaries
 │   └── _archive/              historical snapshots (move during reorg, do not delete)
 ├── instances/
@@ -138,7 +138,7 @@ When an event occurs (job completes, decision is made, status changes), the upda
    STATE.md ← (single source of truth for status)              │
      │  Event appended; frontmatter fields updated             │
      │                                                          │
-     ├──→ ROADMAP.md (only if new strategic decision; rare)     │
+     ├──→ ROADMAP.md (only when the frame is amended; rare)     │
      ├──→ TASKS.md (only if spec actually changed)              │
      ├──→ reports/T<N>_report.md (only if a task completed)     │
      │                                                          │
@@ -192,14 +192,14 @@ This block is **overwritten** on every update; it represents the current snapsho
 **Example — a load-bearing singular claim.** When the project has one high-frequency, load-bearing assertion (a paper's thesis, a chosen working hypothesis), give it a dedicated field rather than letting it sprawl into `active_task` prose or into scratch files:
 
 ```yaml
-thesis: "<one-line current claim> · confidence: <optional qualifier, e.g. tentative/supported> · support: <pointers to reports/ROADMAP> · lineage: A →[date]→ B (full history in event log)"
+thesis: "<one-line current claim> · confidence: <optional qualifier, e.g. tentative/supported> · support: <pointers to reports> · lineage: A →[date]→ B (full history in event log)"
 ```
 
 Overwrite it on each pivot; append the reversal to the event log. This keeps `active_task` a pure focus pointer and keeps the thesis readable in exactly one place. See §8.4.
 
 ### 7.2 Task graph (semi-stable)
 
-A table showing each task's status (`done` / `in_flight` / `blocked-by`) and a one-line description. **Overwritten** when tasks transition states — this is a derived view of the event log, kept inline for fast scanning.
+A table showing each task's status (`done` / `in_flight` / `blocked-by`) and a one-line description. **Overwritten** when tasks transition states — this is a derived view of the event log, kept inline for fast scanning. The `blocked-by` column *is* the task dependency graph; there is no separate DAG file.
 
 ### 7.3 Event log (append-only)
 
@@ -217,7 +217,7 @@ Event types (also open enum):
 - `milestone` — task or stage completed
 - `action` — significant action taken (job submitted, file moved)
 - `discovery` — new finding that affects downstream
-- `decision` — a choice locked (a method over another, a branch at a fork)
+- `decision` — a choice locked (which fork of ROADMAP §stages was taken, which method over which); the standing set of locked decisions is these events minus their reversals — one grep, no separate table (§7.1: do not field-ize what the log already holds)
 - `decision_reversal` — prior decision overturned
 - `structural` — reorganization / file move
 
@@ -298,6 +298,16 @@ Not hypothetical. Each has occurred and triggered a structural fix.
 
 > *Why this is not a 6th content type (cf. §3): a content type is "content with a canonical single source." Intermediate scratch is by definition content whose single source is not yet decided — promoting it IS deciding. Minting it as a content type would license exactly the SOT-squatting this fix removes.*
 
+### 8.5 The strategy file goes stale while the project runs
+
+**Symptom**: `docs/ROADMAP.md` last touched at bootstrap. Two months later the project has added tasks, crossed a fork, locked a target venue — none of it in the file. The decisions surface instead in STATE's `thesis` field (which swells from one line to several thousand characters) and in the event log; the task dependency graph lives only in the task graph's `blocked-by` column. Observed in 3 of 4 active projects (2026-08); nobody noticed, because nothing read the file.
+
+**Root cause**: one file, two update frequencies. Its founding half (what the project is, the bet, stages, red lines) is written once and is still correct months later. Its running half (task DAG, locked decisions) must be written at exactly the moments the hand is already in STATE — a task created, a decision taken. Writing a second file at that moment is a separate act of discipline, and §4.4 says discipline loses. The one project whose ROADMAP stayed current was still pivoting weekly; execution-phase projects never touched it again.
+
+**Fix — split by update frequency, not by topic.** Everything that accumulates is already in STATE and stays there: dependencies = the task graph's `blocked-by` (§7.2); locked decisions = the log's `decision` events minus their reversals (§7.3) — no second table; if replaying them ever proves too costly, that is the failure that earns one (§9.3). ROADMAP keeps only the founding frame, amended by explicit decision — a file that holds only what does not change cannot go stale.
+
+> *Predictor, not a rule (§9.3): a file stays current when writing it is a step on the path of doing the work (`TASKS`: no spec, no task; `scratch/INDEX`: no row, no draft; reports: no report, no completion). It decays when writing it is a separate obligation. Test a proposed content type against this before giving it a file.*
+
 ## 9. Anti-bloat patterns (preserve evolution space)
 
 Micro-patterns that prevent the architecture from rigidifying as it evolves.
@@ -352,6 +362,7 @@ No cadence prescribed (a scheduled sweep is maintenance bloat, §9.3). Run when 
 
 - **Inter-section redundancy in entry files** — read `CLAUDE.md` / `README.md` top to bottom; ask "does §B say anything §A didn't?" If §B is a reframing of §A, merge or remove.
 - **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4), scan its INDEX `active` list: any draft cited as an authority by STATE / ROADMAP / a report, or with an empty `promotes-to`, is an unpromoted authority — promote it and leave a pointer. Directory size itself is *not* a drift signal; a retained authority is.
+- **ROADMAP edited by a task** — `git log -- docs/ROADMAP.md`: a commit that touched it without a `decision` event in the same commit is running content that belongs in STATE (§8.5). If this keeps happening, the file's name is pulling it back; rename then, not before.
 - **Stale tutorial** — if the project has a tutorial (§3), compare its `last_synced` against the newest claim-affecting event in `STATE.md`. Older = stale-by-definition; a reversal absorbed by the spine but not by the tutorial is exactly the drift this layer must never carry.
 
 ---

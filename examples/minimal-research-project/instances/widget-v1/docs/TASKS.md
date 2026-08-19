@@ -30,7 +30,7 @@ Task spec only. Current state / event log -> [`../STATE.md`](../STATE.md).
 - Detector channel drift over integration: mitigate with mid-run cross-check.
 - Calibration reference may degrade: use fresh reference per session.
 
-**Locked decisions**: Method A, per ROADMAP §locked decisions.
+**Locked decisions**: Method A, per STATE event 2026-01-05 (decision).
 
 ## T2 · Stress response under perturbation
 
@@ -53,7 +53,7 @@ Task spec only. Current state / event log -> [`../STATE.md`](../STATE.md).
 - T1-noted detector drift: restrict to channels 1-6.
 
 **Locked decisions**:
-- Method A, per ROADMAP §locked decisions.
+- Method A, per STATE event 2026-01-05 (decision).
 - Channels 1-6 only, per STATE event 2026-02-03.
 
 ## T3 · Linear-response model fit + write-up

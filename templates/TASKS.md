@@ -2,9 +2,7 @@
 
 Task spec only. **Current state / in-flight jobs / event log → [`../STATE.md`](../STATE.md)** (single source).
 
-## Agent read path (this file = L2)
-
-L0-L4 layering: see [`../../../docs/ROADMAP.md`](../../../docs/ROADMAP.md) §Agent read path. This file carries **task spec only** (input / steps / output / completion criteria / known risks / locked decisions).
+Read at task start, §relevant task only (read order → `CLAUDE.md`). This file carries **task spec only** (input / steps / output / completion criteria / known risks / locked decisions).
 
 ## Task graph
 
@@ -44,7 +42,7 @@ L0-L4 layering: see [`../../../docs/ROADMAP.md`](../../../docs/ROADMAP.md) §Age
 - <risk 1>: <mitigation>
 - <risk 2>: <mitigation>
 
-**Locked decisions** (rationale references — see ROADMAP §locked decisions or STATE event log):
+**Locked decisions** (rationale references — STATE event log `decision` events; project-level constraints → ROADMAP §red lines):
 - <decision 1>: <one-line summary + reference>
 - <decision 2>: ...
 
