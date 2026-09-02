@@ -68,6 +68,8 @@ On the natural worry — *won't scratch just become the next bloat?* — no, **p
 3. **A load-bearing singular claim needs its own overwrite container.** Left homeless, a high-frequency claim like a thesis will colonize whatever is nearest — scratch files, then the frontmatter — and turn the single source into a reconciliation engine.
 4. **The fix is a holding area, not a new content type.** Promoting scratch to a first-class type would have licensed exactly the squatting that caused the failure (see SPEC §8.4's closing note).
 
+> *Later observation (2026-09, eight projects): the catalog half of move 1 — `INDEX.md` with status and promotes-to — went unmaintained (124 drafts, 24 rows) while the failure did not recur. What held was the directory boundary and the `thesis` field; the event log's `ref:` pointers turned out to be the catalog. SPEC §8.4 now lists `INDEX.md` as optional wayfinding.*
+
 ## Anonymization notes
 
 Based on a real research project from the same workflow family as case-studies 1 and 2. Identifying details (physical system, specific method, the thesis content, journal target) are generalized. Quantitative metrics (file counts, paragraph counts, pivot counts) are accurate; the science is abstracted.

@@ -22,7 +22,7 @@
     │   ├── README.md     instance entry
     │   ├── docs/TASKS.md task spec (no status)
     │   ├── reports/      completion reports
-    │   └── scratch/      (pivot-phase) non-canonical drafts + INDEX.md; must promote — see SPEC §8.4
+    │   └── scratch/      non-canonical exploration drafts; must promote (SPEC §8.4); INDEX.md optional
     └── <frozen_baseline>/   .aiignore-enforced read-only (if applicable)
 ```
 
@@ -38,7 +38,7 @@
 
 **No 6th type by default.** Add only on real signal (e.g., a publication-writing phase that needs a canonical numbers registry). Literature is *not* such a signal: identity is single-sourced in Zotero and the repo keeps only DOI/arXiv pointers, so filing citations is a step in task completion, not a content type — see §10.
 
-Intermediate scratch (pivot-phase exploration drafts) is *not* a content type — it gets a holding area `instances/<ACTIVE_INSTANCE>/scratch/` + an `INDEX.md` catalog, and must promote to one of the five. See SPEC §8.4.
+Intermediate scratch (exploration drafts) is *not* a content type — it gets a holding area `instances/<ACTIVE_INSTANCE>/scratch/` and must promote to one of the five; the event that used a draft carries its `ref:`. See SPEC §8.4.
 
 ## 3. Frozen-instance policy
 

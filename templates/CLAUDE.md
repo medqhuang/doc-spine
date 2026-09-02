@@ -7,7 +7,7 @@ Auto-loaded. State lives in `instances/<ACTIVE_INSTANCE>/STATE.md` — read its 
 | Content | Lives in | When to read |
 |---|---|---|
 | **State / decisions / events / reversals** | `instances/<ACTIVE_INSTANCE>/STATE.md` | Every session start |
-| **Task spec** (input / steps / output / criteria / risks / locked decisions) | `instances/<ACTIVE_INSTANCE>/docs/TASKS.md` §relevant task | Current task start |
+| **Task spec** (what it consumes; what counts as done or when to stop) | `instances/<ACTIVE_INSTANCE>/docs/TASKS.md` §relevant task | Current task start |
 | **Completion report + data trace** | `instances/<ACTIVE_INSTANCE>/reports/T<N>_report.md` (write once, then read-only) | Task-relevant grep |
 | **Strategy / stages + forks / red lines** (founding frame, near write-once) | `docs/ROADMAP.md` | Decision points |
 | **Cross-project knowledge** (tooling quirks, env gotchas) | `~/.claude/projects/<PROJECT_PATH>/memory/` | On demand |
@@ -16,7 +16,7 @@ Auto-loaded. State lives in `instances/<ACTIVE_INSTANCE>/STATE.md` — read its 
 
 - Event log is **append-only, one line per event** — format and scope / type examples live in the file's own header
 - Findings enter the log as **claims, not facts**: key data carries its uncertainty; the consequence says what remains open or would overturn it
-- Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) are **pointers, overwritten in place**. A value that needs more than a line is not a pointer — it belongs in the event log, a report, or `scratch/`
+- Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) are **pointers, overwritten in place**. A value that needs more than a line is a wrap-up mixing types — it has no single home; split it (HOWTO §2)
 - History corrections go through **`git revert`** + a new event, never a "correction" paragraph
 
 > *This section is a STATE.md special case (event log append-only writing is architecturally critical). Writing rules for other files (TASKS / reports / ROADMAP) belong in `docs/CONVENTIONS.md`, not here.*

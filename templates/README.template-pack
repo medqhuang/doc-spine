@@ -21,5 +21,5 @@ Optional, none needed at bootstrap:
   - project closeout, if a human must retake ownership of the subject matter:
     cp templates/TUTORIAL_WRITING_STANDARD.md → <PROJECT>/docs/ (charter for the
     optional tutorial content type; see SPEC.md §3)
-  - when a pivot-heavy phase begins: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
-    (catalog for non-canonical exploration drafts; see SPEC §8.4)
+  - if scratch/ outgrows what filenames explain: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
+    (optional wayfinding; no status, no obligation; see SPEC §8.4)

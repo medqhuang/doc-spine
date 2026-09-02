@@ -1,23 +1,8 @@
-# <ACTIVE_INSTANCE> · scratch/ INDEX — non-canonical working drafts
+# <ACTIVE_INSTANCE> · scratch/ INDEX — optional wayfinding
 
-> Catalog of **scratch** docs (SPEC §8.4): intermediate exploration artifacts — not task-spec, not report, not strategy.
-> **Non-canonical**: nothing here is a single source. Any content that becomes authoritative must **promote** to STATE / ROADMAP / a report, leaving a pointer here.
-> **Status lives in this INDEX** (active / superseded), never in a doc's body (preserves the no-status-in-doc rule, SPEC §8.2).
-> Superseded drafts are **kept in place** (not deleted) to preserve committed audit links; only their INDEX row moves.
+> Scratch (SPEC §8.4) is **non-canonical**: nothing here is a single source. A draft whose content becomes authoritative is **promoted** to STATE / ROADMAP / a report, leaving a pointer here.
+> The catalog of drafts that mattered is the event log — each carries a `ref:` from the event it fed. This file exists only once the directory has outgrown what filenames explain; it carries no status and no obligation.
 
-## ACTIVE — live drafts (none is an authority)
-
-| doc | sub-type | promotes-to / feeds-into |
+| doc | what it explores | fed into (event / report), if anything |
 |---|---|---|
-| `<name>.md` | <derivation-note / audit / synthesis / analysis / reframe-proposal / probe-plan> | <target STATE field or `decision` event / ROADMAP §red lines / report — or "TBD"> |
-
-## SUPERSEDED — absorbed or abandoned (kept in place for audit links)
-
-| doc | sub-type | superseded-by |
-|---|---|---|
-| `<name>.md` | <sub-type> | → <report / decision that absorbed it> |
-
----
-
-> **Maintenance**: new draft → add an ACTIVE row, pick a sub-type, name its promotes-to target. When a report or decision absorbs it → move the row to SUPERSEDED with the pointer.
-> **Health check (SPEC §10)**: every ACTIVE row must have a promotes-to target and must not be cited as an authority anywhere. An unpromoted authority is the only drift signal — directory size is not.
+| `<name>.md` | <one line> | <pointer, or "—"> |

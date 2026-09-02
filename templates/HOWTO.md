@@ -11,6 +11,7 @@ Local quick reference for using the doc-spine layout in this project.
 | Completion report + data trace | `instances/<ACTIVE_INSTANCE>/reports/T<N>_report.md` |
 | Strategy / stages + forks / red lines | `docs/ROADMAP.md` |
 | Cross-project knowledge | user-level memory |
+| Session wrap-up ("where things stand + what's next") | no single home — split it: in-flight → `in_flight_jobs`; done → events; hunch → one `hypothesis` / `question` line; next step → `next_action`, one line |
 
 ## Session start
 

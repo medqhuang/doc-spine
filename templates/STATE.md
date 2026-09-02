@@ -30,9 +30,9 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 ## Event log (append-only, one line per event)
 
 > Format: `YYYY-MM-DD · <scope> · <event type> · <summary> — key data (value ± uncertainty; JID/refs) + consequence / what remains open`
-> Claim-bearing events (`discovery` / `milestone` / `decision` / `decision_reversal`): the summary before the first ` — ` is one plain-language clause with an explicit subject, readable cold (SPEC §7.3). Other event types: unconstrained
+> Claim-bearing events (`discovery` / `milestone` / `decision` / `decision_reversal` / `hypothesis`): the summary before the first ` — ` is one plain-language clause with an explicit subject, readable cold (SPEC §7.3). Other event types: unconstrained
 > Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` — extend as needed
-> Event type examples: `milestone` / `action` / `discovery` / `decision` / `decision_reversal` / `structural` / `settled` — extend as needed
+> Event type examples: `milestone` / `action` / `discovery` / `decision` / `decision_reversal` / `structural` / `settled` / `question` (open thread to carry) / `hypothesis` (untested conjecture, never cited as a result) — extend as needed
 > Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>… · resolved_model · backlog:[…]`
 
 - **YYYY-MM-DD** · project · structural · initial bootstrap from doc-spine template

@@ -57,7 +57,7 @@ This makes the audit trail trustworthy and trivially searchable.
 | # | Content type | Update frequency | Audience | Canonical location | Format |
 |---|---|---|---|---|---|
 | 1 | **State + events** (status, decisions, reversals, milestones) | High (every event) | AI continuous update; human reviews at boundaries | `<instance>/STATE.md` | MD + YAML frontmatter |
-| 2 | **Task spec** (input, steps, output, criteria, risks, locked decisions) | Medium (when spec actually changes) | AI + human co-read | `<instance>/docs/TASKS.md` | MD |
+| 2 | **Task spec** (what the task consumes; what counts as done **or** when to stop; steps / output / risks / locked decisions as needed — an exploration is specified by its question and stopping rule, not by steps) | Medium (when spec actually changes) | AI + human co-read | `<instance>/docs/TASKS.md` | MD |
 | 3 | **Completion report + data trace** (results, physics interpretation, reproducibility info) | Medium (write once at task completion, then read-only) | Human-primary, AI references | `<instance>/reports/T<N>_report.md` | MD |
 | 4 | **Strategy + stages + red lines** (the project's founding frame: what it is, the bet, the forks, what must not be violated) | Near-zero (written at bootstrap; amended only by an explicit decision) | Human-primary; AI auto-respects | `docs/ROADMAP.md` | MD |
 | 5 | **Cross-project knowledge** (tooling quirks, compute env gotchas) | Low | AI across sessions | `~/.claude/projects/.../memory/` or equivalent persistent memory | MD |
@@ -66,7 +66,7 @@ There is also an implicit **type 6: pure registry** (resource inventories, asset
 
 **The absence of a 6th type should be the default state.** Adding new types only when real demand emerges (e.g., a paper-writing phase that needs a canonical numbers ledger) is the architecture working as intended.
 
-Note: a pivot-heavy phase generates a lot of **intermediate scratch** (exploration drafts that are not yet any of the five types). That is *not* a 6th content type — it is process material whose canonical source is undecided. It gets a holding area + catalog, not a content-type slot. See §8.4.
+Note: a pivot-heavy phase generates a lot of **intermediate scratch** (exploration drafts that are not yet any of the five types). That is *not* a 6th content type — it is process material whose canonical source is undecided. It gets a holding area, not a content-type slot. See §8.4.
 
 ### The tutorial (optional)
 
@@ -119,7 +119,7 @@ Architectural fit — two clauses keep it entropy-safe:
 │       ├── README.md          instance entry + stage directories + historical doc topic navigation
 │       ├── docs/TASKS.md      T1-TN spec (pure spec, no status)
 │       ├── reports/T<N>_report.md   completion reports + data trace
-│       ├── scratch/           (pivot-phase only) non-canonical exploration drafts + INDEX.md catalog; must promote — see §8.4
+│       ├── scratch/           non-canonical exploration drafts; must promote — see §8.4
 │       └── <stage_NN>/<sub-instance>/  inputs / sbatch / scripts / structures + meta/README
 ```
 
@@ -218,8 +218,12 @@ Event types (also open enum):
 - `decision` — a choice locked (which fork of ROADMAP §stages was taken, which method over which); the standing set of locked decisions is these events minus their reversals — one grep, no separate table (§7.1: do not field-ize what the log already holds)
 - `decision_reversal` — prior decision overturned
 - `structural` — reorganization / file move
+- `question` — an open question the next session must carry; raises no claim. Mid-project the log *is* the open-problems list (ROADMAP's table is bootstrap-only, §8.5)
+- `hypothesis` — a conjecture not yet tested: what we suspect · why · what observation would test it. Claim-bearing (the subject clause applies), never cited as a result, and it never touches the `thesis` field — only a `decision` adopts it
 
-**Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
+> *`question` / `hypothesis` are written at the session boundary (HOWTO D.3), for what the next session must carry — not a running diary of every hunch; the conversation holds those.*
+
+**Claims, not facts.** A claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal` / `hypothesis`) records the current best-supported understanding, not an absolute truth: the summary carries the key data **with its uncertainty**; the consequence notes what remains open or what observation would overturn the conclusion. Still one line — what we believe · why · what would change it.
 
 **The summary segment carries a subject.** In a claim-bearing event, the segment before the first ` — ` is one plain-language clause with an **explicit subject** — which quantity, which decision, which gate; what changed; what it now means — readable by someone who was not in the session that wrote it. Handles (gate names, task ids, coined abbreviations), values, and refs follow after the dash.
 
@@ -288,11 +292,11 @@ Not hypothetical. Each has occurred and triggered a structural fix.
 2. A scratch file is allowed to be a single source. But "the current thesis" is type-1 state (overwrite) and/or type-4 strategy (a locked decision) — never a property of a draft file. When a draft holds the authority, every pivot forks a new file and the frontmatter degrades into prose reconciliation. This is §8.1's prose-drift, recurring one level down.
 
 **Fix — a holding area, a promotion rule, and a dedicated field**:
-- **Give scratch its own directory, separate from the spec.** Intermediate exploration docs live in `instances/<active>/scratch/` — a sibling of `docs/` and `reports/`, never mixed in with `TASKS.md`. The directory name itself signals "not canonical." A catalog file `scratch/INDEX.md` lists each doc with its status (active / superseded) and its **promotes-to** target; status lives in the INDEX, never in the doc body (per §8.2).
+- **Give scratch its own directory, separate from the spec.** Intermediate exploration docs live in `instances/<active>/scratch/` — a sibling of `docs/` and `reports/`, never mixed in with `TASKS.md`. The directory name itself signals "not canonical." Scratch docs carry no status: nothing reads them as current, so nothing goes stale. The catalog is the event log — a draft that mattered got a `ref:` from the event it fed, written on the path of the work. `scratch/INDEX.md` is optional wayfinding, not a control (observed 2026-09: eight scratch directories, 124 drafts, 24 index rows — a catalog written as a separate obligation decays exactly as §8.5 predicts; the directory boundary and the `thesis` field are what held).
 - **Scratch is non-canonical and must promote.** Any content that becomes authoritative is **promoted** to its real single source (STATE / ROADMAP / report), leaving the scratch doc as a pointer. A scratch doc still holding an unpromoted authority is the drift signal — not the file count (see below).
 - **A load-bearing singular claim gets a dedicated overwrite field.** The current thesis is one high-frequency overwrite value → a named frontmatter field in STATE.md (§7.1); pivots overwrite it in place, reversals append to the event log. It is read in exactly one place; the file fork disappears.
 
-**On sprawl — volume is not the failure; a retained authority is.** A scratch directory will grow, and that is fine: by construction it holds no canonical content and no status prose, so it cannot produce the version-drift of §8.1 no matter how large — it is a safely-ignorable region. The health metric is not the directory's size but whether its **active** set contains any doc cited as an authority while still sitting in scratch. Do not schedule periodic cleanup (that is maintenance bloat, §9.3). Instead, at natural boundaries — task completion (HOWTO Scenario B), stage end — mark any draft already absorbed by a report as superseded in the INDEX; the file stays in place for its audit links, moving only from the "active" list to the "superseded" list. The active list — the only part read day-to-day — stays small.
+**On sprawl — volume is not the failure; a retained authority is.** A scratch directory will grow, and that is fine: by construction it holds no canonical content and no status prose, so it cannot produce the version-drift of §8.1 no matter how large — it is a safely-ignorable region. The health metric is not the directory's size but whether any doc in it is cited as the **only** home of a load-bearing value. Do not schedule periodic cleanup (that is maintenance bloat, §9.3), and do not mark drafts superseded — a draft absorbed by a report is simply no longer pointed to. Files stay in place for their audit links.
 
 > *Why this is not a 6th content type (cf. §3): a content type is "content with a canonical single source." Intermediate scratch is by definition content whose single source is not yet decided — promoting it IS deciding. Minting it as a content type would license exactly the SOT-squatting this fix removes.*
 
@@ -352,7 +356,7 @@ These cost nothing extra: the diff is already in front of whoever is committing.
 - **Locations-per-event** — count the files this one event changed. Healthy ≤3; at ≥4, name which of them is a second home for something, and fix that before committing.
 - **Status prose leak** — grep the *diff*, not the tree, for `SUPERSEDED` / `当前状态` / `in-progress` / `pending` / a dated `update` being **added** outside `STATE.md` — in every language the project writes in: `更新` / `勘误` / `后记` / `已落` / `作废` are the same leak. An English-only pattern missed two of four real leaks in one project (2026-08). Cheapest to remove before it lands.
 - **Frontmatter drift** — only if this diff touched STATE frontmatter: do the new values agree with the task graph and the newest event? Frontmatter says `active_task: T2` while the body still narrates T1 = silent drift.
-- **Pointer field became prose** — only if this diff touched STATE frontmatter: `active_task` / `next_action` / `thesis` longer than ~250 characters, or spanning lines, is thinking state squatting in a pointer (§7.1, §8.4). Observed in 6 of 19 instances across every model tier (2026-09); no amount of "never a paragraph" wording prevented it, a tripwire does. Move the text to the event log, a report, or `scratch/`; leave a one-line pointer.
+- **Pointer field became prose** — only if this diff touched STATE frontmatter: `active_task` / `next_action` / `thesis` longer than ~250 characters, or spanning lines, is a session wrap-up squatting in a pointer (§7.1). Observed in 6 of 19 instances across every model tier (2026-09); no amount of "never a paragraph" wording prevented it, a tripwire does. What fills it is a mix of types — in-flight jobs, things done, a hunch, a to-do — and a mix has no home: split it per HOWTO §2's last row and leave a one-line pointer.
 
 The commands for all four are in [HOWTO Scenario D](HOWTO.md).
 
@@ -361,7 +365,7 @@ The commands for all four are in [HOWTO Scenario D](HOWTO.md).
 No cadence prescribed (a scheduled sweep is maintenance bloat, §9.3). Run when something reads wrong, or when picking a project back up after a gap.
 
 - **Inter-section redundancy in entry files** — read `CLAUDE.md` / `README.md` top to bottom; ask "does §B say anything §A didn't?" If §B is a reframing of §A, merge or remove.
-- **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4), scan its INDEX `active` list: any draft cited as an authority by STATE / ROADMAP / a report, or with an empty `promotes-to`, is an unpromoted authority — promote it and leave a pointer. Directory size itself is *not* a drift signal; a retained authority is.
+- **Scratch retaining an authority** — if the project has a `scratch/` area (§8.4): `grep -rn 'scratch/' STATE.md docs/ROADMAP.md reports/`. Each hit is either a pointer to reasoning (fine) or the only place a load-bearing value lives (promote it, keep the pointer). Directory size itself is *not* a drift signal; a retained authority is.
 - **ROADMAP edited by a task** — `git log -- docs/ROADMAP.md`: a commit that touched it without a `decision` event in the same commit is running content that belongs in STATE (§8.5). If this keeps happening, the file's name is pulling it back; rename then, not before.
 - **Stale tutorial** — if the project has a tutorial (§3), compare its `last_synced` against the newest claim-affecting event in `STATE.md`. Older = stale-by-definition; a reversal absorbed by the spine but not by the tutorial is exactly the drift this layer must never carry.
 

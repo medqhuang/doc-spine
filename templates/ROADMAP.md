@@ -1,7 +1,7 @@
 # <PROJECT_NAME> · ROADMAP
 
 > The founding frame: what this project is, the bet it makes, its stages and forks, its red lines, what it knowingly defers. Written at bootstrap; amended only by an explicit decision (a `decision` event in STATE, then edit here in place). Read at decision points, not every session.
-> A **stage** groups tasks; you only ever advance tasks (`TASKS.md`), and the active stage is the one containing `active_task`. What accumulates while the project runs — task dependencies, the branch a fork took, problems deferred mid-project — lives in `instances/<ACTIVE_INSTANCE>/STATE.md` (task graph, `decision` events), never here (SPEC §8.5).
+> A **stage** groups tasks; you only ever advance tasks (`TASKS.md`), and the active stage is the one containing `active_task`. What accumulates while the project runs — task dependencies, the branch a fork took, problems deferred mid-project — lives in `instances/<ACTIVE_INSTANCE>/STATE.md` (task graph, `decision` and `question` events), never here (SPEC §8.5).
 
 ---
 
