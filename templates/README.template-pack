@@ -1,17 +1,10 @@
 Template Pack · doc-spine
 
-These files are skeletons for a new project. Copy them to your target project:
+Skeleton files for a new project. Copy them with the Quickstart block in the repo
+README.md (mkdir + one cp per file, destinations included); HOWTO.md §4 is the
+fill-in checklist that follows.
 
-  templates/CLAUDE.md         →  <PROJECT>/CLAUDE.md
-  templates/README.md         →  <PROJECT>/README.md
-  templates/HOWTO.md          →  <PROJECT>/HOWTO.md
-  templates/STATE.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/STATE.md
-  templates/INSTANCE_README.md → <PROJECT>/instances/<ACTIVE_INSTANCE>/README.md
-  templates/TASKS.md          →  <PROJECT>/instances/<ACTIVE_INSTANCE>/docs/TASKS.md
-  templates/ROADMAP.md        →  <PROJECT>/docs/ROADMAP.md
-  templates/CONVENTIONS.md    →  <PROJECT>/docs/CONVENTIONS.md
-
-Note · the relative links inside these templates (e.g., `../STATE.md`, `docs/TASKS.md`, `../../docs/ROADMAP.md`) intentionally do NOT resolve from this `templates/` directory — they are designed to resolve once the file is in its target location in the new project.
+Note · the relative links inside these templates (e.g., `../STATE.md`, `docs/TASKS.md`, `../../docs/ROADMAP.md`) intentionally do NOT resolve from this `templates/` directory — they resolve once the file is in its target location in the new project.
 
 Placeholders to fill in:
   <PROJECT_NAME>           project name
@@ -20,13 +13,13 @@ Placeholders to fill in:
   <DOMAIN-SPECIFIC-RULE>   any domain-specific rule for your project
   <REGISTRY>               if you have a pure registry, e.g., HPC_inventory
 
-Optional next:
-  - Add `.aiignore` to any frozen / read-only instance directory
-  - Add a domain-specific entry to CONVENTIONS.md §6
-  - Research / writing projects: cp templates/lit-settle.reference.md → <PROJECT>/docs/
+Optional, none needed at bootstrap:
+  - `.aiignore` in any frozen / read-only instance directory
+  - a domain-specific entry in CONVENTIONS.md §6
+  - research / writing projects: cp templates/lit-settle.reference.md → <PROJECT>/docs/
     (reference implementation of the literature settle step; see CONVENTIONS.md §10)
-  - At project closeout, if a human must retake ownership of the subject matter:
+  - project closeout, if a human must retake ownership of the subject matter:
     cp templates/TUTORIAL_WRITING_STANDARD.md → <PROJECT>/docs/ (charter for the
-    optional tutorial content type; see SPEC.md §3). Not needed at bootstrap.
-  - When a pivot-heavy phase begins: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
-    (catalog for non-canonical exploration drafts; see SPEC §8.4). Not needed at bootstrap.
+    optional tutorial content type; see SPEC.md §3)
+  - when a pivot-heavy phase begins: cp templates/INDEX.md → instances/<ACTIVE_INSTANCE>/scratch/INDEX.md
+    (catalog for non-canonical exploration drafts; see SPEC §8.4)

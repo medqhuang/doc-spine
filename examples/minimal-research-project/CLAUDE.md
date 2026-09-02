@@ -1,12 +1,12 @@
 # CLAUDE.md · widget-research
 
-Auto-loaded. Read this + `instances/widget-v1/STATE.md` frontmatter (start with `active_task`; then scan the task graph for any other `in_flight` rows), then act. Other docs grep on demand.
+Auto-loaded. State lives in `instances/widget-v1/STATE.md` — read its frontmatter first, then act. Other docs on demand.
 
 ## 5 content types · single-source map
 
 | Content | Lives in | When to read |
 |---|---|---|
-| **State / decisions / events / reversals** | `instances/widget-v1/STATE.md` (append one line, never a paragraph) | Every session start |
+| **State / decisions / events / reversals** | `instances/widget-v1/STATE.md` | Every session start |
 | **Task spec** | `instances/widget-v1/docs/TASKS.md` §relevant task | Current task start |
 | **Completion report + data trace** | `instances/widget-v1/reports/T<N>_report.md` | Task-relevant grep |
 | **Strategy / stages / red lines** (founding frame) | `docs/ROADMAP.md` | Decision points |
@@ -14,11 +14,10 @@ Auto-loaded. Read this + `instances/widget-v1/STATE.md` frontmatter (start with 
 
 ## STATE writing discipline
 
-- Event log is **append-only, one line per event**: `YYYY-MM-DD · scope · event type · summary + key data. ref: <pointer>`
-- Scope examples: `task:T<N> milestone/action/discovery` / `decision_reversal` / `structural` (extend as needed)
-- Scientific findings enter the log as **claims, not facts**: key data carries its uncertainty; consequence notes what remains open / would overturn it. Still one line
-- Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) overwrite in place, never prose
-- History corrections go through `git revert`, never a "correction" paragraph
+- Event log is **append-only, one line per event** — format and examples live in the file's own header
+- Findings enter the log as **claims, not facts**: key data carries its uncertainty; the consequence says what remains open or would overturn it
+- Frontmatter fields (`active_task` / `in_flight_jobs` / `next_action`) are pointers, overwritten in place; anything longer than a line belongs in the event log, a report, or `scratch/`
+- History corrections go through `git revert` + a new event, never a "correction" paragraph
 
 > *This section is a STATE.md special case (event log append-only writing is architecturally critical). Writing rules for other files belong in `docs/CONVENTIONS.md`, not here.*
 
@@ -27,8 +26,8 @@ Auto-loaded. Read this + `instances/widget-v1/STATE.md` frontmatter (start with 
 1. **Status must not leak**: all live status -> `STATE.md`
 2. **Demo scope**: extend freely; the goal is document structure, not widget science
 
-## Session end response
+## Commit boundary
 
-When the user signals session end ("收工" / "wrap up" / "结束") **or** asks to commit, ensure `STATE.md` reflects current truth before committing — classify the state (task still running / just completed / interim) and update per [HOWTO Scenario D](../../HOWTO.md).
+Before any commit, `STATE.md` must reflect current truth: classify the session state (task still running / just completed / interim), update per [HOWTO Scenario D](../../HOWTO.md), and run its drift checks on the diff.
 
 Commit policy: standard; commit logical units with a why-focused message.

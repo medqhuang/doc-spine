@@ -27,7 +27,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 
 ---
 
-## 3. Three daily scenarios (cover 90% of use)
+## 3. Four daily scenarios (cover 90% of use)
 
 ### Scenario A · Session start (1-minute orient)
 
@@ -37,7 +37,7 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 
 ### Scenario B · Task completion (AI finishes a task)
 
-**Trigger**: user signals "T<N> done" / "task complete" / "收官" — an explicit task-boundary statement.
+**Trigger**: the user declares the task complete (an explicit task-boundary statement).
 
 1. **Update `STATE.md` frontmatter**: set `active_task` to the next task, clear `in_flight_jobs`, update `next_action`.
 2. **Append a single event-log line** to `STATE.md`:
@@ -48,7 +48,6 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
 4. **(research / writing) Literature settle**: from the events after the last `lit·settled` + the reports they `ref:`, grep out new DOI/arXiv → settle subagent files them in Zotero → append a `lit·settled` event. Skip if none. See [`templates/CONVENTIONS.md` §10](templates/CONVENTIONS.md).
 5. **Stage decision for non-doc files**: if the project's `Commit policy` excludes certain file types from AI's auto-stage (e.g., compute inputs, generated artifacts), list any modified files of that kind under the completed task's path and ask the user whether to include them in this commit. User confirmation lifts the exclusion for this commit only.
 6. **`git commit`** (one logical change, message says **why**).
-7. **Do NOT** add an "update" paragraph to `TASKS.md` or the old report header.
 
 ### Scenario C · Decision reversal (a prior choice is overturned)
 
@@ -58,12 +57,10 @@ Use this if your project is multi-session, multi-month, AI-collaborative, with p
    ```
 2. **If the founding frame itself changed** (a red line, a stage boundary, the central bet) → edit `docs/ROADMAP.md` in place (rare). Ordinary decisions and their reversals need nothing beyond the event line — the log *is* the standing set.
 3. **If spec changed** → edit the relevant `docs/TASKS.md §task` field in place.
-4. **Do NOT** modify `reports/` (data trace is frozen).
-5. **Do NOT** add a `SUPERSEDED` banner anywhere (the event log is the audit trail).
 
 ### Scenario D · Session end / commit trigger
 
-**Trigger**: user signals "wrap up" / "收工" / "结束" — **or** asks for a commit. Either signal means `STATE.md` must reflect current truth before the commit lands.
+**Trigger**: the session is ending, or a commit is requested. Either way `STATE.md` must reflect current truth before the commit lands.
 
 AI's first move: classify the session-end state into one of three sub-cases.
 
@@ -84,14 +81,19 @@ This is **Scenario B**. The commit is the natural end of that flow.
 
 #### Before the commit lands (all three sub-cases)
 
-Three drift checks, scoped to **this session's diff** — not a repo-wide sweep (SPEC §10):
+Run the four commit-boundary checks of SPEC §10 on **this session's diff**, not the tree:
 
-1. **How many files did this one event change?** `git diff --stat`. ≥4 → say which of them is a second home for something, and fix that now.
-2. **Is status prose being added outside `STATE.md`?**
-   ```bash
-   git diff -U0 | grep -nE '^\+.*(in-progress|pending|SUPERSEDED|当前状态|[0-9]{4}-[0-9]{2}-[0-9]{2} update)'
-   ```
-3. **If the diff touched STATE frontmatter** — do the new values agree with the task graph and the newest event line?
+```bash
+# 1 · locations-per-event: ≥4 files for one event → one of them is a second home; fix before committing
+git diff HEAD --stat
+# 2 · status prose leak, in every language the project writes in, outside STATE.md
+git diff HEAD -U0 -- . ':!*STATE.md' | grep -nE '^\+.*(SUPERSEDED|DEPRECATED|当前状态|in-progress|pending|已落|作废|[0-9]{4}-[0-9]{2}-[0-9]{2}[^|]{0,12}(update|更新|勘误|后记|修订))'
+# 3 · frontmatter drift: if STATE frontmatter changed, do its values agree with the task graph and the newest event? (read, no command)
+# 4 · pointer field became prose: a one-line pointer over ~250 characters, or a field spanning lines
+LC_ALL=en_US.UTF-8 grep -nE '^(active_task|next_action|thesis):.{250,}' $(git diff HEAD --name-only -- '*STATE.md')
+```
+
+Check 4 trips when thinking state has been packed into a pointer. Move the text to the event log, a report, or `scratch/`, and leave the field a one-liner.
 
 The remaining SPEC §10 checks examine accumulated state, not this change; they stay on-demand.
 
@@ -102,19 +104,8 @@ The remaining SPEC §10 checks examine accumulated state, not this change; they 
 ## 4. New project from scratch (~30-minute checklist)
 
 ```
-[ ] mkdir <project> && cd <project> && git init
-[ ] mkdir -p docs instances/<active>/docs instances/<active>/reports
-[ ] Copy templates explicitly:
-    - templates/CLAUDE.md       → CLAUDE.md
-    - templates/README.md       → README.md
-    - templates/HOWTO.md        → HOWTO.md
-    - templates/ROADMAP.md      → docs/ROADMAP.md
-    - templates/CONVENTIONS.md  → docs/CONVENTIONS.md
-    - templates/STATE.md        → instances/<active>/STATE.md
-    - templates/INSTANCE_README.md → instances/<active>/README.md
-    - templates/TASKS.md        → instances/<active>/docs/TASKS.md
-    - templates/lit-settle.reference.md → docs/   (optional; research/writing only)
-[ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, etc.)
+[ ] Copy the templates with the Quickstart block in README.md (mkdir + one cp per file)
+[ ] Fill placeholders (<PROJECT_NAME>, <ACTIVE_INSTANCE>, ...) — the list is in templates/README.template-pack
 [ ] CLAUDE.md          <40 lines — 5 content types table + Hard rules + Commit policy
 [ ] README.md          ≤30 lines — top-level layout + entry table
 [ ] docs/ROADMAP.md    strategy + stages/forks + red lines (founding frame)
@@ -156,8 +147,3 @@ If you're inheriting or recovering a project that has accumulated prose status a
 
 Root causes and fixes for each: [SPEC §8-§9](SPEC.md).
 
----
-
-## 7. Practice path
-
-Walk through scenarios A / B / C with a real event in your project. On the first try, it feels unnatural — you'll want to add prose to TASKS. After 3-5 repetitions, muscle memory takes over. The architecture is designed to be simpler than the alternative once internalized, not harder.

@@ -24,11 +24,6 @@ Local quick reference for using the doc-spine layout in this project.
 2. Append one event-log line to `STATE.md`.
 3. Create or update the relevant `reports/T<N>_report.md`.
 4. (research / writing) Literature settle: from events after the last `lit·settled` + their `ref:` reports, extract new citations → spawn a settle subagent to add them into Zotero → append a `lit·settled` event; skip if none. See `docs/CONVENTIONS.md §10`.
-5. Drift check on the diff before committing: ≤3 files for this one event, no status prose added outside `STATE.md`, frontmatter agrees with the body (SPEC §10 / HOWTO Scenario D).
+5. Drift checks on the diff before committing (commands: canonical HOWTO, Scenario D): ≤3 files for this one event; no status prose added outside `STATE.md`; frontmatter agrees with the body; pointer fields still one line.
 6. Commit the logical change.
 
-## Hard stops
-
-- Do not add live status prose to `TASKS.md`, reports, or sub-instance docs.
-- Do not add `SUPERSEDED` banners; append a new event instead.
-- Do not edit frozen instance content except for navigation-only reorganization allowed by `docs/CONVENTIONS.md`.

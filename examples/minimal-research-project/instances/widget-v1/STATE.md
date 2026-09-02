@@ -40,9 +40,3 @@ last_updated: 2026-02-15
 | Path | Role | Status |
 |---|---|---|
 | `01_measure/widget_v1_runA_2026-02-01/` | T1 baseline + T2 stress setup | T1 done; T2 in-flight |
-
-## Edit permissions reminder
-
-- State changes / decisions / events -> here (append-only event log + frontmatter overwrite)
-- No live status prose in TASKS / reports / sub-instance docs
-- History corrections -> `git revert` + new event

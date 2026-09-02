@@ -1,7 +1,7 @@
 # <PROJECT_NAME> · ROADMAP
 
-> Project strategy — the founding frame: what this project is, the bet it makes, its stages and forks, its red lines, and what it knowingly defers. Written at bootstrap; amended only by an explicit decision (append a `decision` event to STATE, then edit this file in place). Read at decision points, not every session.
-> What **accumulates** while the project runs — task dependencies, the decision taken at each fork — lives in `instances/<ACTIVE_INSTANCE>/STATE.md` (task graph `blocked-by` column; `decision` events), never here. Instance-level task detail → `instances/<ACTIVE_INSTANCE>/docs/TASKS.md`.
+> The founding frame: what this project is, the bet it makes, its stages and forks, its red lines, what it knowingly defers. Written at bootstrap; amended only by an explicit decision (a `decision` event in STATE, then edit here in place). Read at decision points, not every session.
+> A **stage** groups tasks; you only ever advance tasks (`TASKS.md`), and the active stage is the one containing `active_task`. What accumulates while the project runs — task dependencies, the branch a fork took, problems deferred mid-project — lives in `instances/<ACTIVE_INSTANCE>/STATE.md` (task graph, `decision` events), never here (SPEC §8.5).
 
 ---
 
@@ -21,8 +21,6 @@ Central hypothesis / method bet (if the project has one): <the structural claim 
 
 ## Strategy / stages
 
-> A **stage** is the coarse, decision-driven grouping of one or more **tasks** (`TASKS.md` = the fine, execution-driven unit). **You only ever advance tasks** (HOWTO Scenario B); the active stage is simply the one containing `active_task`. You cross into the next stage when its entry conditions (below) hold — recorded as a `milestone` event in STATE, never a separately-tracked status field. Which branch a fork took is likewise a STATE `decision` event; this file only **defines** the fork.
-
 ```
 Stage 1   : <description>
             Deliverable: <what>
@@ -36,12 +34,11 @@ Stage 3a  : <primary path>
 Stage 3b  : <fallback path>
 ```
 
-**Stage entry conditions** (all must hold for primary path):
+**Stage entry conditions** (all must hold for the primary path):
 1. <condition 1>
 2. <condition 2>
-...
 
-If any fails → fall back to Stage 3b.
+If any fails → Stage 3b. Crossing into a stage is a `milestone` event in STATE; which branch a fork took is a `decision` event.
 
 ---
 
@@ -51,7 +48,6 @@ Conditions that, if violated, force re-evaluation:
 
 - **<red line 1>**: <consequence if breached>
 - **<red line 2>**: <consequence>
-- ...
 
 ---
 
@@ -61,9 +57,3 @@ Conditions that, if violated, force re-evaluation:
 |---|---|
 | <problem 1> | <how it will be handled; which task addresses it> |
 | <problem 2> | <handling> |
-
-> *A problem deferred later, mid-project, is a decision: a STATE `decision` event. This table is not extended.*
-
----
-
-> *Nothing in this file changes because a task advanced. If you are editing it for any reason other than amending the frame itself (a red line, a stage boundary, the central bet), the content belongs in STATE — see SPEC §8.5.*

@@ -1,19 +1,19 @@
 ---
-# Current state (high-frequency update target — AI/tools grep frontmatter; humans read it directly too)
+# Current snapshot — overwritten in place. Pointers, not prose (SPEC §7.1).
 active_task: T0
 active_subinstance: <relative_path_or_null>
 in_flight_jobs: []
-# Examples for in_flight_jobs:
+# in_flight_jobs examples:
 #   - {jid: 12345, type: SCF main, cluster: <hpc-name>, submitted: "2026-XX-XXTHH:MM"}
 #   - {jid: 12346, type: <next step>, depends_on: 12345}
-next_action: "<concrete next step — what is the AI / human supposed to do next?>"
-# thesis: "<one-line load-bearing claim> · confidence: <optional> · support: <ptr> · lineage: A →[date]→ B"   # ONLY if the project has one high-frequency load-bearing claim (e.g. a paper thesis); see SPEC §8.4. Omit otherwise.
+next_action: "<one concrete next step>"
+# thesis: "<one-line load-bearing claim> · confidence: <optional> · support: <ptr> · lineage: A →[date]→ B"   # only if the project has one load-bearing claim (e.g. a paper thesis); SPEC §8.4. Omit otherwise.
 last_updated: 2026-XX-XX
 ---
 
 # <INSTANCE_NAME> · State
 
-> **Single source of truth for state + events.** Frontmatter above = current snapshot (overwrite); task graph + event log below: task graph is a state aggregation (overwrite); **only the event log is append-only**. Discipline → [`../../CLAUDE.md`](../../CLAUDE.md); spec → [`docs/TASKS.md`](docs/TASKS.md); reports → [`reports/`](reports/); strategy → [`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).
+> Single source of truth for state + events. Frontmatter = current snapshot (overwrite); task graph = derived view (overwrite); **only the event log is append-only**.
 
 ## Task graph
 
@@ -22,7 +22,6 @@ last_updated: 2026-XX-XX
 | T0 | 🔄 in-progress | <e.g., scoping + decisions> |
 | T1 | ⏳ blocked by T0 | <e.g., baseline calculation> |
 | T2 | ⏳ blocked by T1 | <e.g., follow-up analysis> |
-| ... | ... | ... |
 
 Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 
@@ -32,8 +31,8 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 
 > Format: `YYYY-MM-DD · <scope> · <event type> · <summary> — key data (value ± uncertainty; JID/refs) + consequence / what remains open`
 > Claim-bearing events (`discovery` / `milestone` / `decision` / `decision_reversal`): the summary before the first ` — ` is one plain-language clause with an explicit subject, readable cold (SPEC §7.3). Other event types: unconstrained
-> Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` (extend as needed)
-> Event type examples: `milestone` / `action` / `discovery` / `decision` / `decision_reversal` / `structural` / `settled`
+> Scope examples: `project` / `task:T<N>` / `subinstance:<path>` / `lit` — extend as needed
+> Event type examples: `milestone` / `action` / `discovery` / `decision` / `decision_reversal` / `structural` / `settled` — extend as needed
 > Literature settlement (CONVENTIONS §10) appends, e.g.: `YYYY-MM-DD · lit · settled · <DOI→item_key>… · resolved_model · backlog:[…]`
 
 - **YYYY-MM-DD** · project · structural · initial bootstrap from doc-spine template
@@ -47,12 +46,3 @@ Legend: ✅ done · 🔄 in-flight · ⏳ blocked · ⏸ deferred · ❌ cut
 | Path | Role | Status |
 |---|---|---|
 | <e.g., `01_<stage>/<run_name>/`> | <e.g., baseline calculation> | <status> |
-
----
-
-## Edit permissions / discipline reminder
-
-- **State changes / decisions / events**: append-only to event log above + frontmatter overwrite
-- **No prose updates to TASKS / reports / sub-instance docs** for state (those files carry spec / data trace / role only)
-- **History corrections**: `git revert` + new event, not in-file editing
-- **Cross-project knowledge** (HPC quirks, tool gotchas): goes to user-level memory, not this file

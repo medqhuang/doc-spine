@@ -53,7 +53,7 @@ Not a substitute for project management (Linear, Jira), doc generators (Sphinx, 
 |---|---|
 | [`README.md`](README.md) | This file — 5-minute pitch |
 | [`SPEC.md`](SPEC.md) | Full specification: mechanisms, content types, design principles, failure modes, anti-bloat patterns, file layout |
-| [`HOWTO.md`](HOWTO.md) | Operational guide: lookup tables, 3 daily scenarios, new-project + migration checklists |
+| [`HOWTO.md`](HOWTO.md) | Operational guide: lookup tables, 4 daily scenarios, new-project + migration checklists |
 | [`case-studies/`](case-studies/) | Three anonymized case studies — two failures (doc bloat / pivot-phase scratch sprawl), one success (state-sourced) |
 | [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, etc.) — incl. `lit-settle.reference.md` (optional literature settlement via Zotero) and the tutorial charter `TUTORIAL_WRITING_STANDARD.md` (zh) |
 | [`examples/minimal-research-project/`](examples/minimal-research-project/) | A tiny filled-out project showing the skeleton in action |
@@ -94,7 +94,7 @@ If you remember nothing else, remember this. Everything else in this repo is der
 
 ## Status
 
-Version 0.6 — the first-author dossier is removed; the tutorial is now the only optional author-side type. Version history lives in `git log` — one commit per version, no changelog prose here. Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: two failures (doc bloat; pivot-phase scratch sprawl) and one state-sourced success (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
+Version 0.7 — reinforcement copies are gone from the template pack, HOWTO and skill: each rule is stated once, where it is read (SPEC §8.3 applied to the spec's own files). The commit-boundary checks become bilingual and gain a pointer-field length tripwire; both were earned by real leaks that repetition had not prevented under any model tier (SPEC §10). Version history lives in `git log` — one commit per version, no changelog prose here. Derived from multi-month computational physics projects — all featuring **HPC compute paired with local AI-assisted coding**. Three case studies: two failures (doc bloat; pivot-phase scratch sprawl) and one state-sourced success (see [`case-studies/`](case-studies/)). The architecture is stable in this workflow; effectiveness in other domains (web / data / ML / team software) is **unverified** — cross-domain case studies welcome.
 
 ## Contributing
 

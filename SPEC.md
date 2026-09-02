@@ -172,8 +172,6 @@ active_subinstance: <relative_path>
 
 `active_task` is a **focus pointer**, not the full set of in-flight tasks. It answers "where should the next session start reading?" — a single session entry point. When multiple tasks advance in parallel, that fact is expressed by the task graph (§7.2), where each row carries its own `in_flight` / `blocked-by` status. Keeping `active_task` singular avoids duplicating the in-flight set in two places and forces an explicit "what to advance first" choice at session end.
 
-**Reading order on session start**: read `active_task` first, then scan the task graph for any other `in_flight` rows that also need attention this session.
-
 The fields below are **optional** — add them only when the truth doesn't already live elsewhere. **Omit `in_flight_jobs` / `next_action` / `last_updated` if the truth lives in an external system (SLURM queue, CI status, git mtime) or in the event log itself**; field-izing them duplicates state that will go stale and force reconciliation cost. Likewise **`stage` is not a field** — the active stage is the ROADMAP stage containing `active_task` (already visible in `active_subinstance`'s `<stage_NN>_` path prefix), so field-izing it would duplicate that and drift; see ROADMAP §stages for the stage↔task relationship.
 
 ```yaml
@@ -352,9 +350,11 @@ Split by **what a check examines**, which decides when it can run. A check with 
 These cost nothing extra: the diff is already in front of whoever is committing.
 
 - **Locations-per-event** — count the files this one event changed. Healthy ≤3; at ≥4, name which of them is a second home for something, and fix that before committing.
-- **Status prose leak** — grep the *diff*, not the tree, for `in-progress` / `pending` / `SUPERSEDED` / `当前状态` / `YYYY-MM-DD update` being **added** outside `STATE.md` / `STATE.yaml`. Cheapest to remove before it lands.
+- **Status prose leak** — grep the *diff*, not the tree, for `SUPERSEDED` / `当前状态` / `in-progress` / `pending` / a dated `update` being **added** outside `STATE.md` — in every language the project writes in: `更新` / `勘误` / `后记` / `已落` / `作废` are the same leak. An English-only pattern missed two of four real leaks in one project (2026-08). Cheapest to remove before it lands.
 - **Frontmatter drift** — only if this diff touched STATE frontmatter: do the new values agree with the task graph and the newest event? Frontmatter says `active_task: T2` while the body still narrates T1 = silent drift.
-- **Subject-less claim** — for each claim-bearing event (`discovery` / `milestone` / `decision` / `decision_reversal`) this diff appends, read only the segment before its first ` — `, out of context. If it does not name what the claim is about, rewrite before committing: the next writer will resolve the referent against a context that no longer exists (§7.3).
+- **Pointer field became prose** — only if this diff touched STATE frontmatter: `active_task` / `next_action` / `thesis` longer than ~250 characters, or spanning lines, is thinking state squatting in a pointer (§7.1, §8.4). Observed in 6 of 19 instances across every model tier (2026-09); no amount of "never a paragraph" wording prevented it, a tripwire does. Move the text to the event log, a report, or `scratch/`; leave a one-line pointer.
+
+The commands for all four are in [HOWTO Scenario D](HOWTO.md).
 
 ### On demand — accumulated state, not this change
 
