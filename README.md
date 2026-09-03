@@ -24,6 +24,8 @@ Research / writing projects can add a **literature settle step** at task complet
 
 Heavily AI-driven projects can further opt into a **tutorial** — one downstream type written at closeout that gives the human owner back what execution artifacts can't: the domain story, image-first, readable by a zero-context reader. See [SPEC.md §3](SPEC.md) and the charter in [`templates/`](templates/).
 
+It prescribes **placement, not process** — where a fact or a decision is written once it exists, never how you arrive at one. A task can be specified by steps and completion criteria, or, when it is a search, by its question and its stopping rule. An open question or an untested conjecture is a one-line event: logged, so the next session carries it, without being managed. The thinking itself stays in the conversation and in `scratch/`, and the architecture governs neither.
+
 Nothing should live in two places. If two files describe the same status, one is stale by definition.
 
 → Full definitions and rationale: [SPEC.md §2-3](SPEC.md).
@@ -55,7 +57,7 @@ Not a substitute for project management (Linear, Jira), doc generators (Sphinx, 
 | [`SPEC.md`](SPEC.md) | Full specification: mechanisms, content types, design principles, failure modes, anti-bloat patterns, file layout |
 | [`HOWTO.md`](HOWTO.md) | Operational guide: lookup tables, 4 daily scenarios, new-project + migration checklists |
 | [`case-studies/`](case-studies/) | Three anonymized case studies — two failures (doc bloat / pivot-phase scratch sprawl), one success (state-sourced) |
-| [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, etc.) — incl. `lit-settle.reference.md` (optional literature settlement via Zotero) and the tutorial charter `TUTORIAL_WRITING_STANDARD.md` (zh) |
+| [`templates/`](templates/) | Copy-paste skeleton files (CLAUDE.md, STATE.md, TASKS.md, …), plus four optional extras none of which is needed at bootstrap: `lit-settle.reference.md` (literature settlement via Zotero), `TUTORIAL_WRITING_STANDARD.md` (closeout tutorial charter, zh), `INDEX.md` (`scratch/` wayfinding), `HOWTO.md` (local quick reference) |
 | [`examples/minimal-research-project/`](examples/minimal-research-project/) | A tiny filled-out project showing the skeleton in action |
 
 ---
@@ -75,6 +77,9 @@ cp doc-spine/templates/CONVENTIONS.md "$project/docs/CONVENTIONS.md"
 cp doc-spine/templates/STATE.md "$project/instances/$instance/STATE.md"
 cp doc-spine/templates/INSTANCE_README.md "$project/instances/$instance/README.md"
 cp doc-spine/templates/TASKS.md "$project/instances/$instance/docs/TASKS.md"
+
+# Optional, add when the need appears — see templates/README.template-pack:
+#   lit-settle.reference.md · TUTORIAL_WRITING_STANDARD.md · INDEX.md · .aiignore in frozen instances
 
 # Then fill placeholders: <PROJECT_NAME>, <ACTIVE_INSTANCE>, <PROJECT_PATH>, etc.
 cd "$project" && git init && git add -A && git commit -m "Bootstrap with doc-spine"

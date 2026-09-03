@@ -26,4 +26,4 @@ This example demonstrates:
 Fork this example, replace "widget" with your domain, and you have a working starter.
 
 ---
-*Adapted from [doc-spine](https://github.com/<YOUR_USER>/doc-spine).*
+*Adapted from [doc-spine](https://github.com/medqhuang/doc-spine).*
